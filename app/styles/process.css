@@ -1,0 +1,115 @@
+.process-section {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  align-items: start;
+  gap: 100px;
+}
+.process-intro {
+  position: sticky;
+  top: 130px;
+}
+.process-intro .section-heading {
+  margin-top: 26px;
+  font-size: clamp(40px, 4.7vw, 64px);
+}
+.process-intro p {
+  max-width: 290px;
+  margin-top: 28px;
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--muted);
+}
+.process-footnote {
+  display: block;
+  font-size: 8px;
+  color: var(--muted);
+  margin-top: 38px;
+}
+.process-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.process-steps li {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 18px;
+  border-top: 1px solid var(--line);
+  padding: 30px 0;
+}
+.process-number {
+  color: var(--accent);
+  padding-top: 12px;
+}
+.process-steps h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 40px;
+  letter-spacing: -0.045em;
+  font-weight: 400;
+}
+.process-steps h3 span {
+  font-size: 20px;
+  color: var(--muted);
+}
+.process-steps h4 {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 12px 0;
+}
+.process-steps p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.85;
+  max-width: 370px;
+}
+.process-output {
+  display: block;
+  font-size: 8px;
+  color: var(--muted);
+  margin-top: 20px;
+}
+@media (max-width: 1000px) {
+  .process-section {
+    gap: 45px;
+  }
+  .process-steps h3 {
+    font-size: 34px;
+  }
+}
+@media (max-width: 600px) {
+  .process-section {
+    display: block;
+  }
+  .process-intro {
+    position: static;
+    margin-bottom: 35px;
+  }
+  .process-intro .section-heading br:last-child {
+    display: none;
+  }
+  .process-intro .section-heading {
+    font-size: 42px;
+  }
+  .process-intro p {
+    margin-top: 22px;
+  }
+  .process-footnote {
+    display: none;
+  }
+  .process-steps li {
+    grid-template-columns: 24px 1fr;
+    gap: 14px;
+    padding: 23px 0;
+  }
+  .process-steps h3 {
+    font-size: 33px;
+  }
+  .process-steps h4 {
+    font-size: 13px;
+  }
+  .process-steps p {
+    font-size: 12px;
+  }
+}
