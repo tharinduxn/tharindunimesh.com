@@ -68,10 +68,7 @@ export function Projects() {
                     rel="noopener noreferrer"
                   >
                     {project.linkLabel}
-                    <span className="sr-only">
-                      {" "}
-                      for {project.title} (opens in a new tab)
-                    </span>{" "}
+                    <span className="sr-only"> for {project.title} (opens in a new tab)</span>{" "}
                     <Arrow />
                   </a>
                 </div>
