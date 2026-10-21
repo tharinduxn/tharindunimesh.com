@@ -11,7 +11,7 @@ await mkdir('.qa', { recursive: true });
 try {
   const discovery = await browser.newPage();
   await discovery.goto(baseURL);
-  const routes = ['/', ...await discovery.locator('a[href^="/work/"]').evaluateAll(links => [...new Set(links.map(a => a.getAttribute('href')))])];
+  const routes = process.argv.length > 2 ? process.argv.slice(2) : ['/', ...await discovery.locator('a[href^="/work/"]').evaluateAll(links => [...new Set(links.map(a => a.getAttribute('href')))])];
   await discovery.close();
   for (const route of routes) {
     for (const width of route === '/' ? [320, 360, 390, 768, 1024, 1440] : [390, 1440]) {
