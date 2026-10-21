@@ -107,7 +107,7 @@ export function ProjectVisual({
           alt={`${project.title} live website, desktop homepage`}
           width={1440}
           height={960}
-          sizes="(max-width: 600px) 90vw, 80vw"
+          sizes="(max-width: 600px) 88vw, (max-width: 1000px) 78vw, 940px"
           preload={priority}
         />
       </div>
@@ -117,7 +117,7 @@ export function ProjectVisual({
           alt={`${project.title} live website, mobile homepage`}
           width={390}
           height={844}
-          sizes="(max-width: 600px) 110px, 200px"
+          sizes="(max-width: 600px) 96px, (max-width: 1000px) 18vw, 190px"
         />
       </div>
       <span className="visual-bottomline eyebrow">Desktop & mobile / Live website</span>

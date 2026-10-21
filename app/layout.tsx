@@ -30,6 +30,19 @@ export const metadata: Metadata = {
   },
   description:
     "Thoughtful digital products, built right. Tharindu Nimesh is a developer in Sri Lanka building considered web and mobile experiences with React, Next.js, and Flutter.",
+  openGraph: {
+    title: "Tharindu Nimesh — Developer & Product Builder",
+    description:
+      "Thoughtful digital products, built right. Selected web and mobile work engineered with React, Next.js, TypeScript, and Flutter.",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tharindu Nimesh — Developer & Product Builder",
+    description:
+      "Thoughtful digital products, built right. Selected web and mobile work engineered with React, Next.js, TypeScript, and Flutter.",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
