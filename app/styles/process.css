@@ -1,115 +1,157 @@
 .process-section {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 1fr 1.25fr;
   align-items: start;
-  gap: 100px;
+  gap: 88px;
 }
 .process-intro {
   position: sticky;
-  top: 130px;
+  top: 120px;
 }
 .process-intro .section-heading {
-  margin-top: 26px;
+  margin-top: 22px;
   font-size: clamp(40px, 4.7vw, 64px);
 }
 .process-intro p {
-  max-width: 290px;
-  margin-top: 28px;
-  font-size: 14px;
-  line-height: 1.85;
+  max-width: 340px;
+  margin-top: 24px;
+  font-size: var(--text-body);
+  line-height: 1.8;
   color: var(--muted);
 }
-.process-footnote {
+.process-diagram {
+  margin-top: 36px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-elevated);
+}
+.process-diagram-label {
   display: block;
-  font-size: 8px;
   color: var(--muted);
-  margin-top: 38px;
+  font-size: 10px;
+  margin-bottom: 14px;
+}
+.process-diagram-track {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+.process-diagram-node {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid var(--line-subtle);
+  border-radius: var(--radius-xs);
+  background: var(--paper);
+  font-size: 12px;
+  font-weight: 500;
+}
+.process-diagram-node .eyebrow {
+  color: var(--accent);
+  font-size: 9.5px;
 }
 .process-steps {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 .process-steps li {
-  display: grid;
-  grid-template-columns: 44px 1fr;
-  gap: 18px;
-  border-top: 1px solid var(--line);
-  padding: 30px 0;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-elevated);
+}
+.process-step-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
 }
 .process-number {
   color: var(--accent);
-  padding-top: 12px;
+  font-weight: 600;
 }
 .process-steps h3 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 40px;
-  letter-spacing: -0.045em;
-  font-weight: 400;
-}
-.process-steps h3 span {
-  font-size: 20px;
-  color: var(--muted);
-}
-.process-steps h4 {
-  font-size: 14px;
+  font-size: clamp(26px, 2.8vw, 34px);
+  letter-spacing: var(--tracking-subhead);
   font-weight: 500;
-  margin: 12px 0;
-}
-.process-steps p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.85;
-  max-width: 370px;
+  line-height: 1.1;
 }
 .process-output {
-  display: block;
-  font-size: 8px;
+  margin-left: auto;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xs);
+  background: var(--surface-subtle);
+  font-size: 10px;
+  color: var(--ink-secondary);
+}
+.process-step-body {
+  padding-top: 18px;
+}
+.process-steps h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.process-steps p {
+  font-size: 14px;
   color: var(--muted);
-  margin-top: 20px;
+  line-height: 1.8;
+  max-width: 52ch;
+}
+.process-checkpoints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+.process-checkpoints span {
+  font-size: 9.5px;
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xs);
+  background: var(--paper);
+  color: var(--muted);
 }
 @media (max-width: 1000px) {
   .process-section {
-    gap: 45px;
-  }
-  .process-steps h3 {
-    font-size: 34px;
-  }
-}
-@media (max-width: 600px) {
-  .process-section {
-    display: block;
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
   .process-intro {
     position: static;
-    margin-bottom: 35px;
   }
+  .process-intro p {
+    max-width: 48ch;
+  }
+}
+@media (max-width: 600px) {
   .process-intro .section-heading br:last-child {
     display: none;
   }
   .process-intro .section-heading {
-    font-size: 42px;
+    font-size: 40px;
   }
-  .process-intro p {
-    margin-top: 22px;
-  }
-  .process-footnote {
-    display: none;
+  .process-diagram-track {
+    grid-template-columns: repeat(2, 1fr);
   }
   .process-steps li {
-    grid-template-columns: 24px 1fr;
-    gap: 14px;
-    padding: 23px 0;
+    padding: 22px 20px;
   }
-  .process-steps h3 {
-    font-size: 33px;
+  .process-step-header {
+    flex-wrap: wrap;
+    gap: 10px;
   }
-  .process-steps h4 {
-    font-size: 13px;
-  }
-  .process-steps p {
-    font-size: 12px;
+  .process-output {
+    margin-left: 0;
+    width: 100%;
   }
 }
