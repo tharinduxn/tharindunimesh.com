@@ -24,6 +24,18 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const introSessionGate = `try {
+  if (sessionStorage.getItem("tharinduxn-intro-seen") === "true") {
+    document.documentElement.classList.add("intro-seen");
+  } else if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.documentElement.classList.add("intro-playing");
+  }
+} catch {
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.documentElement.classList.add("intro-playing");
+  }
+}`;
+
 export const metadata: Metadata = {
   title: {
     default: "tharinduxn",
@@ -48,8 +60,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+    >
       <body>
+        <script dangerouslySetInnerHTML={{ __html: introSessionGate }} />
         <a className="skip-link" href="#main-content">
           Skip to content
         </a>
