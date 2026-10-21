@@ -5,63 +5,33 @@
 .about-grid {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
-  gap: 80px;
-  margin-top: 36px;
-}
-.about-lead-col {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 44px;
+  gap: 100px;
+  margin-top: 40px;
 }
 .about-grid .section-heading {
   font-size: clamp(42px, 5.5vw, 72px);
 }
-.about-dossier {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px 28px;
-  margin: 0;
-  padding-top: 28px;
-  border-top: 1px solid var(--line);
-  max-width: 460px;
-}
-.about-dossier dt {
-  color: var(--muted);
-  font-size: 10px;
-}
-.about-dossier dd {
-  margin: 4px 0 0;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--ink);
-}
 .about-copy {
-  max-width: 490px;
+  max-width: 470px;
 }
 .about-copy p {
-  font-size: var(--text-body);
+  font-size: 14px;
   color: var(--muted);
-  line-height: 1.85;
+  line-height: 1.9;
   margin-bottom: 22px;
 }
 .about-copy .about-lead {
-  font-size: var(--text-lead);
+  font-size: 21px;
   color: var(--ink);
-  line-height: 1.6;
-  letter-spacing: -0.02em;
+  line-height: 1.65;
+  letter-spacing: -0.025em;
 }
 .about-signature {
   display: flex;
   gap: 18px;
   align-items: center;
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid var(--line);
-  font-size: 14px;
-}
-.about-signature strong {
-  font-weight: 500;
+  margin-top: 35px;
+  font-size: 13px;
 }
 .signature-mark {
   display: grid;
@@ -69,91 +39,64 @@
   width: 50px;
   height: 50px;
   border: 1px solid var(--line-strong);
-  background: var(--surface-elevated);
   border-radius: 50%;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 600;
   letter-spacing: -0.08em;
-  flex-shrink: 0;
 }
 .about-signature .eyebrow {
   display: block;
   color: var(--muted);
   margin-top: 4px;
-  font-size: 10px;
+  font-size: 8px;
 }
 .about-principles {
-  padding-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-top: 32px;
   border-top: 1px solid var(--line);
   margin-top: 64px;
 }
-.about-principles-header {
-  margin-bottom: 24px;
-}
-.about-principles-header > .eyebrow {
+.about-principles > .eyebrow {
   color: var(--muted);
+  font-size: 8px;
 }
-.about-principles-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-.principle-card {
-  padding: 24px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: var(--surface-elevated);
-}
-.principle-number {
-  color: var(--accent);
-}
-.principle-card h3 {
-  font-size: 19px;
-  font-weight: 500;
-  letter-spacing: var(--tracking-subhead);
-  margin: 12px 0 8px;
-}
-.principle-card p {
-  font-size: 13.5px;
-  line-height: 1.7;
-  color: var(--muted);
+.about-principles > p {
+  font-size: 12px;
 }
 @media (max-width: 1000px) {
   .about-grid {
     gap: 45px;
   }
-  .about-principles-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+  .about-principles {
+    flex-wrap: wrap;
   }
 }
 @media (max-width: 600px) {
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 30px;
     margin-top: 28px;
-  }
-  .about-lead-col {
-    gap: 28px;
   }
   .about-grid .section-heading {
     font-size: clamp(40px, 10.5vw, 60px);
-  }
-  .about-dossier {
-    gap: 16px 20px;
-    padding-top: 22px;
   }
   .about-copy .about-lead {
     font-size: 18px;
   }
   .about-copy p {
-    font-size: 14px;
+    font-size: 13px;
   }
   .about-principles {
-    margin-top: 40px;
-    padding-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 36px;
+    padding-top: 25px;
   }
-  .principle-card {
-    padding: 20px;
+  .about-principles p {
+    font-size: 13px;
   }
 }

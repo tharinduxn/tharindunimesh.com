@@ -1,24 +1,3 @@
-const principles = [
-  {
-    number: "01",
-    title: "Clarity over complexity.",
-    detail:
-      "Interfaces and architectures that make the next step self-evident for the person using them.",
-  },
-  {
-    number: "02",
-    title: "Details that serve a purpose.",
-    detail:
-      "Typography, spacing, and motion chosen to guide attention rather than compete with the task.",
-  },
-  {
-    number: "03",
-    title: "Care, all the way through.",
-    detail:
-      "From responsive layouts and keyboard accessibility to clean, maintainable application code.",
-  },
-];
-
 export function About() {
   return (
     <section id="about" className="about-section" aria-labelledby="about-heading">
@@ -27,37 +6,17 @@ export function About() {
           <span className="index">02 /</span> The thinking behind the making
         </div>
         <div className="about-grid" data-reveal>
-          <div className="about-lead-col">
-            <h2 className="section-heading" id="about-heading">
-              Good software
+          <h2 className="section-heading" id="about-heading">
+            Good software
+            <br />
+            feels obvious.
+            <br />
+            <span className="muted">
+              Getting there
               <br />
-              feels obvious.
-              <br />
-              <span className="muted">
-                Getting there
-                <br />
-                takes care.
-              </span>
-            </h2>
-            <dl className="about-dossier">
-              <div>
-                <dt className="eyebrow">Base</dt>
-                <dd>Matara, Sri Lanka</dd>
-              </div>
-              <div>
-                <dt className="eyebrow">Focus</dt>
-                <dd>Web &amp; Mobile Products</dd>
-              </div>
-              <div>
-                <dt className="eyebrow">Education</dt>
-                <dd>BSc (Hons) MIS · NSBM</dd>
-              </div>
-              <div>
-                <dt className="eyebrow">Core Stack</dt>
-                <dd>Next.js · TypeScript · Flutter</dd>
-              </div>
-            </dl>
-          </div>
+              takes care.
+            </span>
+          </h2>
           <div className="about-copy">
             <p className="about-lead">
               I’m Tharindu, a developer based in Matara, Sri Lanka. I care about the space where a
@@ -77,25 +36,17 @@ export function About() {
                 tn.
               </span>
               <div>
-                <strong>Tharindu Nimesh</strong>
+                Tharindu Nimesh
                 <span className="eyebrow">Curious by nature. Builder by practice.</span>
               </div>
             </div>
           </div>
         </div>
-        <div className="about-principles" data-reveal>
-          <div className="about-principles-header">
-            <span className="eyebrow">Operating principles / A few things I build by</span>
-          </div>
-          <div className="about-principles-grid">
-            {principles.map((item) => (
-              <div className="principle-card" key={item.number}>
-                <span className="eyebrow principle-number">{item.number}</span>
-                <h3>{item.title}</h3>
-                <p>{item.detail}</p>
-              </div>
-            ))}
-          </div>
+        <div className="about-principles">
+          <span className="eyebrow">A few things I build by</span>
+          <p>Clarity over complexity.</p>
+          <p>Details that serve a purpose.</p>
+          <p>Care, all the way through.</p>
         </div>
       </div>
     </section>
