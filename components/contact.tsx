@@ -22,12 +22,23 @@ export function Contact() {
             <Arrow />
           </a>
         </div>
-        <div className="contact-bottom">
-          <div>
+        <div className="contact-bottom" data-reveal>
+          <div className="contact-info">
             <p className="contact-description">
-              A new product, a better interface, or something worth figuring out. I’d love to hear
-              about it.
+              A new product, a better interface, or something worth figuring out. Whether you are
+              hiring for a product team or planning a web or mobile build, I’d love to hear about
+              it.
             </p>
+            <dl className="contact-meta">
+              <div>
+                <dt className="eyebrow">Collaboration</dt>
+                <dd>Web &amp; Mobile Product Engineering</dd>
+              </div>
+              <div>
+                <dt className="eyebrow">Location &amp; Time</dt>
+                <dd>Matara, Sri Lanka (UTC+5:30)</dd>
+              </div>
+            </dl>
             <div className="contact-socials">
               <a
                 className="text-link"
@@ -50,7 +61,7 @@ export function Contact() {
             </div>
           </div>
           <div className="contact-email">
-            <span className="eyebrow">Start a conversation</span>
+            <span className="eyebrow">Direct inquiry / Start a conversation</span>
             <a href="mailto:tharinduxn@gmail.com">tharinduxn@gmail.com</a>
             <CopyEmail />
           </div>
