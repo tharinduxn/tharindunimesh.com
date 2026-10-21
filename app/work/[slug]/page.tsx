@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { projects } from "@/lib/projects";
 import { ProjectVisual } from "@/components/project-visual";
 import { Arrow } from "@/components/arrow";
+import { Header } from "@/components/header";
 
 export function generateStaticParams() { return projects.map(({ slug }) => ({ slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -21,7 +22,7 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
   const nextProject = projects[(index + 1) % projects.length];
   return (
     <>
-      <header className="site-header container"><Link className="wordmark" href="/">tharindu<span className="accent">.</span></Link><Link className="text-link" href="/#work">Back to selected work <Arrow /></Link></header>
+      <Header />
       <main className="case-study" id="main-content" tabIndex={-1}>
         <section className="case-intro container"><div className="section-label eyebrow"><span className="index">Case study / {project.number}</span>{project.category}</div><h1>{project.title}<span className="accent">.</span></h1><p className="case-tagline">{project.tagline}</p><div className="case-facts"><div><span className="eyebrow">My role</span><p>{project.role}</p></div><div><span className="eyebrow">Toolkit</span><p>{project.stack.join(" / ")}</p></div><a className="text-link" href={project.url} target="_blank" rel="noopener noreferrer">{project.linkLabel}<span className="sr-only"> (opens in a new tab)</span> <Arrow /></a></div></section>
         <div className="container case-main-visual"><ProjectVisual project={project} priority /></div>

@@ -7,6 +7,7 @@ import "./styles/experience.css";
 import "./styles/expertise.css";
 import "./styles/process.css";
 import "./styles/contact.css";
+import "./styles/navigation.css";
 import { Footer } from "@/components/footer";
 
 const geistSans = Geist({

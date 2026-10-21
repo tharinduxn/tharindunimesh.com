@@ -5,15 +5,12 @@ import { Experience } from "@/components/experience";
 import { Expertise } from "@/components/expertise";
 import { Process } from "@/components/process";
 import { Contact } from "@/components/contact";
-import Link from "next/link";
+import { Header } from "@/components/header";
 
 export default function Home() {
   return (
     <>
-      <header className="site-header container">
-        <Link className="wordmark" href="/" aria-label="Tharindu Nimesh home">tharindu<span className="accent">.</span></Link>
-        <span className="eyebrow">Independent developer</span>
-      </header>
+      <Header home />
       <main id="main-content" tabIndex={-1}>
         <Hero />
         <Projects />
