@@ -1,31 +1,38 @@
 const capabilities = [
   {
     title: "Frontend engineering",
+    scope: "Web applications",
     detail:
-      "Responsive interfaces with clear structure, considered interactions, and maintainable components.",
-    tools: "React / Next.js / TypeScript",
+      "Responsive interfaces with clear structure, considered interactions, and maintainable component architecture.",
+    tools: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
   },
   {
     title: "Mobile development",
-    detail: "Connected experiences that feel at home on a small screen, across Android and iOS.",
-    tools: "Flutter / Dart / Riverpod",
-  },
-  {
-    title: "UI systems",
+    scope: "Android & iOS",
     detail:
-      "A consistent visual language that carries the same care from the first screen to the last.",
-    tools: "Figma / Tailwind CSS / Framer Motion",
+      "Connected mobile experiences that feel natural in the hand, with predictable state and smooth transitions.",
+    tools: ["Flutter", "Dart", "Riverpod", "Firebase"],
   },
   {
-    title: "Performance",
+    title: "UI systems & motion",
+    scope: "Design engineering",
     detail:
-      "Fast loading, efficient assets, and responsive interactions built into the experience.",
-    tools: "Image optimisation / SEO / Vercel",
+      "A consistent visual language and purposeful motion that carry the same care from the first screen to the last.",
+    tools: ["Figma", "CSS Tokens", "Framer Motion", "GSAP"],
   },
   {
-    title: "Product thinking",
-    detail: "Connecting what people need with what the interface and the underlying system can do.",
-    tools: "User flows / API integration / Data modelling",
+    title: "Performance & quality",
+    scope: "Production readiness",
+    detail:
+      "Fast initial loads, optimised media, semantic HTML, and keyboard-first accessibility built into the workflow.",
+    tools: ["Core Web Vitals", "WCAG 2.2 AA", "Playwright", "Vercel"],
+  },
+  {
+    title: "Product & full-stack",
+    scope: "End-to-end delivery",
+    detail:
+      "Connecting what people need on screen with authentication, data storage, payments, and transactional email.",
+    tools: ["Supabase", "PayHere", "Resend", "Gemini AI"],
   },
 ];
 
@@ -45,23 +52,26 @@ export function Expertise() {
             </h2>
           </div>
           <p>
-            The right tools matter.
-            <br />
-            Knowing what to do with them matters more.
+            The right tools matter. Knowing how to combine them around a real user problem matters
+            more.
           </p>
         </div>
         <div className="capabilities">
           {capabilities.map((capability, index) => (
             <div className="capability" data-reveal key={capability.title}>
               <span className="eyebrow capability-index">0{index + 1}</span>
-              <h3>{capability.title}</h3>
-              <div>
-                <p>{capability.detail}</p>
-                <span className="eyebrow">{capability.tools}</span>
+              <div className="capability-heading">
+                <h3>{capability.title}</h3>
+                <span className="eyebrow capability-scope">{capability.scope}</span>
               </div>
-              <span className="capability-symbol" aria-hidden="true">
-                ↗
-              </span>
+              <p className="capability-detail">{capability.detail}</p>
+              <div className="capability-tools" aria-label={`${capability.title} toolkit`}>
+                {capability.tools.map((tool) => (
+                  <span key={tool} className="eyebrow">
+                    {tool}
+                  </span>
+                ))}
+              </div>
             </div>
           ))}
         </div>
