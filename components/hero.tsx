@@ -19,7 +19,7 @@ export function Hero() {
               Built right<span className="accent">.</span>
             </span>
           </h1>
-          <div className="hero-description">
+          <div className="hero-description" data-page-enter>
             <p>
               I bring ideas to life through considered design and thoughtful engineering. For the
               web. For mobile. For people.

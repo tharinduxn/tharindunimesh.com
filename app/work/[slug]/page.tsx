@@ -32,7 +32,7 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
       <Header />
       <MotionEffects key={slug} />
       <main className="case-study" id="main-content" tabIndex={-1}>
-        <section className="case-intro container" data-reveal>
+        <section className="case-intro container" data-page-enter>
           <div className="section-label eyebrow">
             <span className="index">Case study / {project.number}</span>
             {project.category}
