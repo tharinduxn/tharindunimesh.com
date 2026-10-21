@@ -3,7 +3,7 @@ export function About() {
     <section id="about" className="about-section" aria-labelledby="about-heading">
       <div className="container section">
         <div className="section-label eyebrow"><span className="index">02 /</span> The thinking behind the making</div>
-        <div className="about-grid">
+        <div className="about-grid" data-reveal>
           <h2 className="section-heading" id="about-heading">Good software<br />feels obvious.<br /><span className="muted">Getting there<br />takes care.</span></h2>
           <div className="about-copy">
             <p className="about-lead">I’m Tharindu, a developer based in Matara, Sri Lanka. I care about the space where a useful idea becomes something people can actually use.</p>

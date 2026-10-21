@@ -9,8 +9,8 @@ const capabilities = [
 export function Expertise() {
   return (
     <section id="expertise" className="expertise-section" aria-labelledby="expertise-heading">
-      <div className="container section"><div className="section-top"><div><div className="section-label eyebrow"><span className="index">04 /</span> What I bring</div><h2 className="section-heading" id="expertise-heading">From interface<br /><span className="muted">to implementation.</span></h2></div><p>The right tools matter.<br />Knowing what to do with them matters more.</p></div>
-        <div className="capabilities">{capabilities.map((capability, index) => <div className="capability" key={capability.title}><span className="eyebrow capability-index">0{index + 1}</span><h3>{capability.title}</h3><div><p>{capability.detail}</p><span className="eyebrow">{capability.tools}</span></div><span className="capability-symbol" aria-hidden="true">↗</span></div>)}</div>
+      <div className="container section"><div className="section-top" data-reveal><div><div className="section-label eyebrow"><span className="index">04 /</span> What I bring</div><h2 className="section-heading" id="expertise-heading">From interface<br /><span className="muted">to implementation.</span></h2></div><p>The right tools matter.<br />Knowing what to do with them matters more.</p></div>
+        <div className="capabilities">{capabilities.map((capability, index) => <div className="capability" data-reveal key={capability.title}><span className="eyebrow capability-index">0{index + 1}</span><h3>{capability.title}</h3><div><p>{capability.detail}</p><span className="eyebrow">{capability.tools}</span></div><span className="capability-symbol" aria-hidden="true">↗</span></div>)}</div>
       </div>
     </section>
   );
