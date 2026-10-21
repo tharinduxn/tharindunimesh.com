@@ -37,9 +37,7 @@ export function Experience() {
     >
       <div className="section-top" data-reveal>
         <div>
-          <div className="section-label eyebrow">
-            <span className="index">03 /</span> The journey
-          </div>
+          <div className="section-label eyebrow">The journey</div>
           <h2 className="section-heading" id="journey-heading">
             Different chapters.
             <br />

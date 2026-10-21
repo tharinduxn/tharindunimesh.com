@@ -2,9 +2,7 @@ export function About() {
   return (
     <section id="about" className="about-section" aria-labelledby="about-heading">
       <div className="container section">
-        <div className="section-label eyebrow">
-          <span className="index">02 /</span> The thinking behind the making
-        </div>
+        <div className="section-label eyebrow">The thinking behind the making</div>
         <div className="about-grid" data-reveal>
           <h2 className="section-heading" id="about-heading">
             Good software

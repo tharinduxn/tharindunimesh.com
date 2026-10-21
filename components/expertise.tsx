@@ -35,9 +35,7 @@ export function Expertise() {
       <div className="container section">
         <div className="section-top" data-reveal>
           <div>
-            <div className="section-label eyebrow">
-              <span className="index">04 /</span> What I bring
-            </div>
+            <div className="section-label eyebrow">What I bring</div>
             <h2 className="section-heading" id="expertise-heading">
               From interface
               <br />
@@ -51,9 +49,8 @@ export function Expertise() {
           </p>
         </div>
         <div className="capabilities">
-          {capabilities.map((capability, index) => (
+          {capabilities.map((capability) => (
             <div className="capability" data-reveal key={capability.title}>
-              <span className="eyebrow capability-index">0{index + 1}</span>
               <h3>{capability.title}</h3>
               <div>
                 <p>{capability.detail}</p>

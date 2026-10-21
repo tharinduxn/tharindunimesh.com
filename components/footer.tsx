@@ -2,11 +2,11 @@ import Link from "next/link";
 import { Arrow } from "./arrow";
 
 const footerLinks = [
-  { href: "/#work", label: "Work" },
   { href: "/#about", label: "About" },
-  { href: "/#journey", label: "Journey" },
   { href: "/#expertise", label: "Expertise" },
   { href: "/#approach", label: "Approach" },
+  { href: "/#work", label: "Work" },
+  { href: "/#journey", label: "Journey" },
   { href: "/#contact", label: "Contact" },
 ];
 

@@ -5,18 +5,51 @@ import { useEffect, useRef, useState } from "react";
 import { Arrow } from "./arrow";
 
 const links = [
-  { id: "work", label: "Work", number: "01" },
-  { id: "about", label: "About", number: "02" },
-  { id: "journey", label: "Journey", number: "03" },
-  { id: "expertise", label: "Expertise", number: "04" },
-  { id: "approach", label: "Approach", number: "05" },
+  { id: "about", label: "About" },
+  { id: "expertise", label: "Expertise" },
+  { id: "approach", label: "Approach" },
+  { id: "work", label: "Work" },
+  { id: "journey", label: "Journey" },
 ];
 
 export function Header({ home = false }: { home?: boolean }) {
   const menu = useRef<HTMLDetailsElement>(null);
   const [active, setActive] = useState("");
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const currentY = window.scrollY;
+        const delta = currentY - lastScrollY;
+
+        setScrolled(currentY > 16);
+
+        if (menu.current?.open || currentY <= 64) {
+          setHidden(false);
+        } else if (delta > 6) {
+          setHidden(true);
+        } else if (delta < -6) {
+          setHidden(false);
+        }
+
+        lastScrollY = currentY;
+        ticking = false;
+      });
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      if (event.clientY <= 36) {
+        setHidden(false);
+      }
+    };
+
     const close = (event: KeyboardEvent) => {
       if (event.key === "Escape" && menu.current?.open) {
         menu.current.open = false;
@@ -35,6 +68,8 @@ export function Header({ home = false }: { home?: boolean }) {
     const resize = () => {
       if (desktop.matches && menu.current) menu.current.open = false;
     };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
     document.addEventListener("keydown", close);
     document.addEventListener("pointerdown", pointer);
     desktop.addEventListener("change", resize);
@@ -51,6 +86,8 @@ export function Header({ home = false }: { home?: boolean }) {
         .querySelectorAll("main > section[id]")
         .forEach((section) => observer.observe(section));
     return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("pointermove", onPointerMove);
       document.removeEventListener("keydown", close);
       document.removeEventListener("pointerdown", pointer);
       desktop.removeEventListener("change", resize);
@@ -68,15 +105,17 @@ export function Header({ home = false }: { home?: boolean }) {
   }
 
   return (
-    <header className="navigation">
+    <header
+      className="navigation"
+      data-hidden={hidden ? "true" : undefined}
+      data-scrolled={scrolled ? "true" : undefined}
+      onFocusCapture={() => setHidden(false)}
+    >
       <div className="nav-inner container">
         <div className="nav-brand">
           <Link className="wordmark" href="/" aria-label="Tharindu Nimesh home">
             tharindu<span className="accent">.</span>
           </Link>
-          <span className="nav-meta eyebrow" aria-hidden="true">
-            LK · Web &amp; Mobile
-          </span>
         </div>
         <nav className="desktop-nav" aria-label="Main navigation">
           {links.map((link) => (
@@ -86,15 +125,11 @@ export function Header({ home = false }: { home?: boolean }) {
               aria-current={home && active === link.id ? "location" : undefined}
               onClick={() => closeMenu(link.id)}
             >
-              <span className="nav-index eyebrow" aria-hidden="true">
-                {link.number}
-              </span>
               {link.label}
             </Link>
           ))}
         </nav>
         <Link className="nav-contact" href={`${home ? "" : "/"}#contact`}>
-          <span className="nav-status-dot" aria-hidden="true" />
           Let’s talk <Arrow />
         </Link>
         <details className="mobile-menu" ref={menu}>
@@ -106,13 +141,12 @@ export function Header({ home = false }: { home?: boolean }) {
             </span>
           </summary>
           <nav aria-label="Mobile navigation">
-            {[...links, { id: "contact", label: "Let’s talk", number: "06" }].map((link, index) => (
+            {[...links, { id: "contact", label: "Let’s talk" }].map((link) => (
               <Link
                 key={link.id}
                 href={`${home ? "" : "/"}#${link.id}`}
                 onClick={() => closeMenu(link.id)}
               >
-                <span className="eyebrow">0{index + 1}</span>
                 {link.label}
                 <Arrow />
               </Link>

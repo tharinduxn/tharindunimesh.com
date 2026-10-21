@@ -1,6 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
-import { projects } from "@/lib/projects";
 import { Arrow } from "./arrow";
 
 export function Hero() {
@@ -16,12 +14,16 @@ export function Hero() {
       <div className="hero-grid">
         <div className="hero-copy">
           <h1 id="hero-heading">
-            Thoughtful
-            <br />
-            products.
-            <br />
-            <span className="hero-final-line">
-              Built right<span className="accent">.</span>
+            <span className="hero-line-mask">
+              <span className="hero-line-inner">Thoughtful</span>
+            </span>
+            <span className="hero-line-mask">
+              <span className="hero-line-inner">products.</span>
+            </span>
+            <span className="hero-line-mask">
+              <span className="hero-line-inner hero-final-line">
+                Built right<span className="accent">.</span>
+              </span>
             </span>
           </h1>
           <div className="hero-description" data-page-enter>
@@ -51,7 +53,7 @@ export function Hero() {
               fetchPriority="high"
             />
             <span className="portrait-index eyebrow" aria-hidden="true">
-              Fig. 01 — The person behind the pixels
+              The person behind the pixels
             </span>
             <span className="portrait-cross" aria-hidden="true">
               +
@@ -71,23 +73,6 @@ export function Hero() {
           </figcaption>
         </figure>
       </div>
-      <nav className="hero-index" aria-label="Selected case studies">
-        <span className="hero-index-label eyebrow">Selected work</span>
-        <ol>
-          {projects.map((project) => (
-            <li key={project.slug}>
-              <Link href={`/work/${project.slug}`}>
-                <span className="eyebrow hero-index-number">{project.number}</span>
-                <span className="hero-index-title">{project.title}</span>
-                <span className="eyebrow hero-index-category">
-                  {project.category.split(" / ")[0]}
-                </span>
-                <Arrow />
-              </Link>
-            </li>
-          ))}
-        </ol>
-      </nav>
     </section>
   );
 }

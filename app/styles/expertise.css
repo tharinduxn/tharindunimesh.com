@@ -23,15 +23,11 @@
 }
 .capability {
   display: grid;
-  grid-template-columns: 50px 1fr 1.2fr 35px;
+  grid-template-columns: 1fr 1.2fr 35px;
   align-items: start;
   gap: 30px;
   padding-block: 28px;
   border-bottom: 1px solid var(--dark-line);
-}
-.capability-index {
-  color: var(--dark-muted);
-  padding-top: 6px;
 }
 .capability h3 {
   font-size: 27px;
@@ -58,7 +54,7 @@
 }
 @media (max-width: 1000px) {
   .capability {
-    grid-template-columns: 30px 1fr 1.1fr;
+    grid-template-columns: 1fr 1.1fr;
     gap: 20px;
   }
   .capability-symbol {
@@ -70,12 +66,9 @@
 }
 @media (max-width: 600px) {
   .capability {
-    grid-template-columns: 25px 1fr;
+    grid-template-columns: 1fr;
     gap: 10px 15px;
     padding-block: 24px;
-  }
-  .capability > div {
-    grid-column: 2;
   }
   .capability h3 {
     font-size: 24px;

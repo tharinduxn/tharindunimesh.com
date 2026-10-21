@@ -35,7 +35,7 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
         <section className="case-intro container" data-page-enter>
           <div className="case-top-bar">
             <div className="section-label eyebrow">
-              <span className="index">Case study / {project.number}</span>
+              <span className="index">Case study /</span>
               {project.category}
             </div>
             <Link className="text-link case-back-link" href="/#work">
@@ -75,16 +75,15 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
             <span className="eyebrow">Behind the build</span>
             <p>{project.description}</p>
             <nav aria-label="Case study chapters">
-              {project.chapters.map((chapter, i) => (
+              {project.chapters.map((chapter) => (
                 <a key={chapter.title} href={`#${chapter.title.toLowerCase()}`}>
-                  <span>0{i + 1}</span>
                   {chapter.title}
                 </a>
               ))}
             </nav>
           </aside>
           <div>
-            {project.chapters.map((chapter, i) => (
+            {project.chapters.map((chapter) => (
               <section
                 className="case-chapter"
                 data-reveal
@@ -92,7 +91,7 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
                 key={chapter.title}
               >
                 <div className="eyebrow">
-                  <span className="accent">0{i + 1} /</span> {chapter.title}
+                  <span className="accent">{chapter.title}</span>
                 </div>
                 <h2>{chapter.heading}</h2>
                 <p>{chapter.body}</p>

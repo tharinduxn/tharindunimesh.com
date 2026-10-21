@@ -44,9 +44,7 @@ export function Process() {
       aria-labelledby="process-heading"
     >
       <div className="process-intro">
-        <div className="section-label eyebrow">
-          <span className="index">05 /</span> How I work
-        </div>
+        <div className="section-label eyebrow">How I work</div>
         <h2 className="section-heading" id="process-heading">
           A clear process.
           <br />

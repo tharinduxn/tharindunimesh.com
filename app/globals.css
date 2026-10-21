@@ -283,8 +283,90 @@ img {
 .wordmark .accent {
   font-size: 35px;
 }
+.intro-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: var(--dark-bg);
+  color: var(--dark-text);
+  display: flex;
+  align-items: center;
+  clip-path: inset(0% 0% 0% 0%);
+  pointer-events: none;
+  will-change: clip-path;
+}
+.intro-loader-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.intro-loader-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+}
+.intro-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 4px;
+}
+.intro-word {
+  display: inline-block;
+  font-size: clamp(28px, 3.2vw, 38px);
+  font-weight: 650;
+  letter-spacing: -0.065em;
+  line-height: 1.05;
+  will-change: transform;
+}
+.intro-word .accent {
+  color: var(--dark-accent);
+  font-size: 1.18em;
+}
+.intro-loader-right {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.intro-meta {
+  color: var(--dark-muted);
+  font-size: 10px;
+}
+.intro-count {
+  color: var(--dark-text);
+  font-size: 11px;
+  min-width: 36px;
+  text-align: right;
+}
+.intro-line-rail {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--dark-line);
+  overflow: hidden;
+}
+.intro-line-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--dark-accent);
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+}
+.hero-line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.hero-line-inner {
+  display: block;
+  will-change: transform;
+}
 .hero {
   padding-top: 50px;
+  padding-bottom: clamp(56px, 6.5vw, 96px);
 }
 .hero-intro {
   display: flex;
@@ -406,10 +488,10 @@ img {
 }
 .hero-index a {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr auto;
   grid-template-areas:
-    "number title arrow"
-    ". category arrow";
+    "title arrow"
+    "category arrow";
   align-items: center;
   gap: 2px 14px;
   min-height: 64px;
@@ -418,10 +500,6 @@ img {
 }
 .hero-index a:hover {
   background: var(--surface-subtle);
-}
-.hero-index-number {
-  grid-area: number;
-  color: var(--accent);
 }
 .hero-index-title {
   grid-area: title;
@@ -630,12 +708,5 @@ img {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
 }

@@ -5,9 +5,7 @@ export function Contact() {
   return (
     <section id="contact" className="contact-section" aria-labelledby="contact-heading">
       <div className="container section">
-        <div className="section-label eyebrow">
-          <span className="index">06 /</span> Make the next thing
-        </div>
+        <div className="section-label eyebrow">Make the next thing</div>
         <div className="contact-top" data-reveal>
           <h2 id="contact-heading">
             Have an idea?
