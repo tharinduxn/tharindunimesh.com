@@ -6,6 +6,8 @@ import "./styles/story.css";
 import "./styles/experience.css";
 import "./styles/expertise.css";
 import "./styles/process.css";
+import "./styles/contact.css";
+import { Footer } from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
-      <body><a className="skip-link" href="#main-content">Skip to content</a>{children}</body>
+      <body><a className="skip-link" href="#main-content">Skip to content</a>{children}<Footer /></body>
     </html>
   );
 }
