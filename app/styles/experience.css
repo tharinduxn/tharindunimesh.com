@@ -4,111 +4,126 @@
 .milestones {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
   padding: 0;
-  margin: 65px 0 0;
+  margin: 48px 0 0;
   list-style: none;
 }
 .milestones li {
-  padding: 0 36px 0 0;
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-elevated);
 }
-.milestones li + li {
-  padding-left: 26px;
-}
-.milestones li:last-child {
-  padding-right: 0;
+.milestone-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
 }
 .milestone-date {
-  position: relative;
-  padding-top: 26px;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 9px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 .milestone-dot {
-  position: absolute;
-  top: -4px;
-  left: 0;
   width: 7px;
   height: 7px;
   background: var(--accent);
   border-radius: 50%;
+  flex-shrink: 0;
+}
+.milestone-chapter {
+  color: var(--accent);
+  font-weight: 600;
+}
+.milestone-year-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin: 24px 0 18px;
 }
 .milestone-year {
   display: block;
-  font-size: 68px;
+  font-size: clamp(44px, 4.5vw, 60px);
   line-height: 1;
-  letter-spacing: -0.06em;
-  margin: 24px 0;
+  letter-spacing: -0.055em;
+  font-weight: 500;
+}
+.milestone-domain {
+  color: var(--muted);
+  font-size: 10px;
 }
 .milestones h3 {
   font-size: 21px;
   font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: -0.035em;
-  max-width: 230px;
-  margin-bottom: 22px;
+  line-height: 1.25;
+  letter-spacing: var(--tracking-subhead);
+  margin-bottom: 18px;
 }
 .milestone-role {
-  font-size: 12px;
+  padding: 12px 14px;
+  border-left: 2px solid var(--accent);
+  background: var(--surface-subtle);
+  font-size: 13px;
   font-weight: 500;
-  line-height: 1.7;
+  line-height: 1.5;
 }
 .milestone-role > span {
   display: block;
-  font-size: 10px;
+  font-size: 11.5px;
   color: var(--muted);
   font-weight: 400;
-  margin-top: 5px;
+  margin-top: 4px;
 }
 .milestones p {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
-  line-height: 1.9;
+  line-height: 1.8;
+  margin-top: 18px;
+  flex-grow: 1;
+}
+.milestone-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
   margin-top: 22px;
-  max-width: 300px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-subtle);
+}
+.milestone-tags span {
+  font-size: 9.5px;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xs);
+  background: var(--paper);
+  color: var(--ink-secondary);
 }
 @media (max-width: 1000px) {
-  .milestones li {
-    padding-right: 20px;
-  }
-  .milestones li + li {
-    padding-left: 12px;
-  }
-  .milestone-year {
-    font-size: 56px;
+  .milestones {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 }
 @media (max-width: 600px) {
   .milestones {
-    grid-template-columns: 1fr;
-    margin-top: 38px;
+    margin-top: 32px;
+    gap: 18px;
   }
-  .milestones li,
-  .milestones li + li {
-    padding: 0 0 35px 24px;
-    border-left: 1px solid var(--line);
-  }
-  .milestone-date {
-    border: 0;
-    padding: 0;
-  }
-  .milestone-dot {
-    top: 5px;
-    left: -28px;
+  .milestones li {
+    padding: 22px 20px;
   }
   .milestone-year {
     font-size: 42px;
-    margin: 16px 0;
   }
   .milestones h3 {
-    font-size: 22px;
-    max-width: none;
-    margin-bottom: 16px;
-  }
-  .milestones p {
-    margin-top: 15px;
-  }
-  .milestones li:last-child {
-    padding-bottom: 0;
+    font-size: 20px;
   }
 }
