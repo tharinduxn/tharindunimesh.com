@@ -10,7 +10,7 @@ export function Projects() {
       <div className="project-list">
         {projects.map(project => (
           <article className="project" data-reveal key={project.slug}>
-            <Link href={`/work/${project.slug}`} className="project-image-link" aria-label={`Read the ${project.title} case study`}><ProjectVisual project={project} /><span className="project-open" aria-hidden="true"><Arrow /></span></Link>
+            <div className="project-preview"><ProjectVisual project={project} /><Link href={`/work/${project.slug}`} className="project-open" aria-label={`Read the ${project.title} case study`}><Arrow /></Link></div>
             <div className="project-caption"><div><div className="eyebrow project-category"><span>{project.number}</span>{project.category}</div><h3><Link href={`/work/${project.slug}`}>{project.title}</Link></h3><p>{project.tagline}</p></div><div className="project-caption-right"><div className="project-tags">{project.stack.slice(0, 3).map(tool => <span key={tool}>{tool}</span>)}</div><Link className="text-link" href={`/work/${project.slug}`}>Explore case study <Arrow /></Link></div></div>
           </article>
         ))}

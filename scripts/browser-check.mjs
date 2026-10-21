@@ -35,7 +35,7 @@ try {
         brokenAnchors: [...document.querySelectorAll('a[href^="#"]')].map(a => a.getAttribute('href')).filter(href => href.length > 1 && !document.getElementById(decodeURIComponent(href.slice(1)))),
         headings: document.querySelectorAll('h1').length,
       }));
-      const accessibility = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+      const accessibility = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
       const result = { route, width, ...layout, violations: accessibility.violations.map(({ id, nodes }) => ({ id, targets: nodes.map(n => n.target) })) };
       findings.push(result);
       if (layout.overflow || layout.brokenImages.length || layout.brokenAnchors.length || layout.headings !== 1 || result.violations.length) failures.push(JSON.stringify(result));

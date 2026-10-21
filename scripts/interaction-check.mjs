@@ -22,7 +22,7 @@ try {
   const toggle = menu.locator('summary');
   await toggle.click();
   await expect(menu).toHaveAttribute('open', '');
-  const mobileAxe = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+  const mobileAxe = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
   expect(mobileAxe.violations).toEqual([]);
   await page.keyboard.press('Escape');
   await expect(menu).not.toHaveAttribute('open', '');

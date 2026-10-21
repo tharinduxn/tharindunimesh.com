@@ -1,5 +1,5 @@
 .project-list { display: flex; flex-direction: column; gap: 70px; }
-.project-image-link { display: block; position: relative; border-radius: 4px; }
+.project-preview { display: block; position: relative; border-radius: 4px; }
 .project-visual { height: 560px; position: relative; overflow: hidden; border-radius: 4px; }
 .visual-everlife { background: #e5e0d6; }
 .visual-gosurf { background: #e2e8e5; }
@@ -67,7 +67,7 @@
 .case-next { padding: 50px 0 85px; border-top: 1px solid var(--line); }
 .case-next > a:not(.text-link) { display: flex; align-items: center; justify-content: space-between; gap: 24px; font-size: clamp(38px, 6vw, 78px); letter-spacing: -.06em; line-height: 1.1; padding-block: 25px; }
 .case-next > a > .arrow { width: 50px; height: 50px; }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) { .project-image-link:hover .browser-frame { transform: translateY(-5px); } .project-image-link:hover .mobile-frame { transform: translateY(5px); } }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .project-preview:hover .browser-frame { transform: translateY(-5px); } .project-preview:hover .mobile-frame { transform: translateY(5px); } }
 @media (max-width: 1000px) {
   .project-visual { height: 440px; }
   .browser-frame { top: 70px; left: 5%; width: 82%; }
@@ -87,7 +87,7 @@
   .browser-chrome { font-size: 5px; padding: 6px 8px; }
   .browser-dots { font-size: 4px; }
   .mobile-frame { width: 27%; right: 6%; top: 98px; border-width: 3px; border-radius: 14px; }
-  .project-open { bottom: 12px; right: 12px; width: 36px; height: 36px; }
+  .project-open { bottom: 12px; right: 12px; width: 44px; height: 44px; }
   .project-caption { display: block; padding-top: 20px; }
   .project-caption h3 { font-size: 26px; }
   .project-category { gap: 10px; font-size: 7px; }
