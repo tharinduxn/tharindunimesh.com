@@ -10,7 +10,8 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test:browser": "node scripts/browser-check.mjs",
     "test:interactions": "node scripts/interaction-check.mjs",
-    "test:motion": "node scripts/motion-check.mjs"
+    "test:motion": "node scripts/motion-check.mjs",
+    "audit:lighthouse": "node scripts/lighthouse-check.mjs"
   },
   "dependencies": {
     "framer-motion": "^14.4.0",

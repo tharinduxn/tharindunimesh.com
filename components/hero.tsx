@@ -15,7 +15,7 @@ export function Hero() {
         </div>
         <figure className="hero-portrait">
           <div className="portrait-image-wrap">
-            <Image src="/images/tharindu-portrait.webp" alt="Tharindu Nimesh, rendered in a monochrome pattern of binary digits" width={1000} height={1000} sizes="(max-width: 600px) 90vw, (max-width: 900px) 42vw, 420px" preload />
+            <Image src="/images/tharindu-portrait.webp" alt="Tharindu Nimesh, rendered in a monochrome pattern of binary digits" width={1000} height={1000} sizes="(max-width: 600px) calc(100vw - 160px), (max-width: 1000px) 45vw, 420px" loading="eager" fetchPriority="high" />
             <span className="portrait-index eyebrow" aria-hidden="true">Fig. 01 — The person behind the pixels</span>
             <span className="portrait-cross" aria-hidden="true">+</span>
           </div>
