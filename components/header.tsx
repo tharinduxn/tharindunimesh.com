@@ -5,9 +5,11 @@ import { useEffect, useRef, useState } from "react";
 import { Arrow } from "./arrow";
 
 const links = [
-  { id: "work", label: "Work" },
-  { id: "about", label: "About" },
-  { id: "approach", label: "Approach" },
+  { id: "work", label: "Work", number: "01" },
+  { id: "about", label: "About", number: "02" },
+  { id: "journey", label: "Journey", number: "03" },
+  { id: "expertise", label: "Expertise", number: "04" },
+  { id: "approach", label: "Approach", number: "05" },
 ];
 
 export function Header({ home = false }: { home?: boolean }) {
@@ -29,7 +31,7 @@ export function Header({ home = false }: { home?: boolean }) {
       )
         menu.current.open = false;
     };
-    const desktop = window.matchMedia("(min-width: 701px)");
+    const desktop = window.matchMedia("(min-width: 901px)");
     const resize = () => {
       if (desktop.matches && menu.current) menu.current.open = false;
     };
@@ -68,22 +70,31 @@ export function Header({ home = false }: { home?: boolean }) {
   return (
     <header className="navigation">
       <div className="nav-inner container">
-        <Link className="wordmark" href="/" aria-label="Tharindu Nimesh home">
-          tharindu<span className="accent">.</span>
-        </Link>
+        <div className="nav-brand">
+          <Link className="wordmark" href="/" aria-label="Tharindu Nimesh home">
+            tharindu<span className="accent">.</span>
+          </Link>
+          <span className="nav-meta eyebrow" aria-hidden="true">
+            LK · Web &amp; Mobile
+          </span>
+        </div>
         <nav className="desktop-nav" aria-label="Main navigation">
           {links.map((link) => (
             <Link
               key={link.id}
               href={`${home ? "" : "/"}#${link.id}`}
               aria-current={home && active === link.id ? "location" : undefined}
+              onClick={() => closeMenu(link.id)}
             >
+              <span className="nav-index eyebrow" aria-hidden="true">
+                {link.number}
+              </span>
               {link.label}
-              <span aria-hidden="true">↗</span>
             </Link>
           ))}
         </nav>
         <Link className="nav-contact" href={`${home ? "" : "/"}#contact`}>
+          <span className="nav-status-dot" aria-hidden="true" />
           Let’s talk <Arrow />
         </Link>
         <details className="mobile-menu" ref={menu}>
@@ -95,7 +106,7 @@ export function Header({ home = false }: { home?: boolean }) {
             </span>
           </summary>
           <nav aria-label="Mobile navigation">
-            {[...links, { id: "contact", label: "Let’s talk" }].map((link, index) => (
+            {[...links, { id: "contact", label: "Let’s talk", number: "06" }].map((link, index) => (
               <Link
                 key={link.id}
                 href={`${home ? "" : "/"}#${link.id}`}
@@ -106,7 +117,10 @@ export function Header({ home = false }: { home?: boolean }) {
                 <Arrow />
               </Link>
             ))}
-            <p className="eyebrow">Thoughtful products. Built right.</p>
+            <div className="mobile-menu-footer">
+              <p className="eyebrow">Thoughtful products. Built right.</p>
+              <span className="eyebrow">Matara, Sri Lanka · Web &amp; mobile</span>
+            </div>
           </nav>
         </details>
       </div>
