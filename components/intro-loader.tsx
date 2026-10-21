@@ -4,309 +4,393 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import "@/app/styles/intro.css";
 
-const WORDS = ["THOUGHT", "FORM", "FUNCTION"];
-const COLUMNS = [0, 1, 2, 3, 4];
+const SIGNATURE_CHARS = ["t", "h", "a", "r", "i", "n", "d", "u"];
+const INTRO_SEEN_KEY = "tharinduxn-intro-seen";
 
 export function IntroLoader() {
-  const rootRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const apertureRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<SVGCircleElement>(null);
-  const wordRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const brandRef = useRef<HTMLSpanElement>(null);
-  const dotRef = useRef<HTMLSpanElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const flipCardRef = useRef<HTMLDivElement>(null);
+  const flipImgRef = useRef<HTMLImageElement>(null);
+  const signatureRef = useRef<HTMLDivElement>(null);
+  const accentCharRef = useRef<HTMLSpanElement>(null);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const root = rootRef.current;
-    const canvas = canvasRef.current;
-    if (!root) return;
+    const stage = stageRef.current;
+    const flipCard = flipCardRef.current;
+    const signature = signatureRef.current;
+    if (!stage || !flipCard || !signature) return;
 
-    // 1. Lightweight 60fps interactive binary/architectural glyph field on Canvas
-    let rafId = 0;
-    const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (motionPreference.matches) return;
 
-    const onPointerMove = (e: PointerEvent) => {
-      pointer.x = e.clientX;
-      pointer.y = e.clientY;
-    };
-    window.addEventListener("pointermove", onPointerMove, { passive: true });
-
-    if (canvas) {
-      const ctx2d = canvas.getContext("2d");
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const resizeCanvas = () => {
-        canvas.width = window.innerWidth * dpr;
-        canvas.height = window.innerHeight * dpr;
-        ctx2d?.setTransform(dpr, 0, 0, dpr, 0, 0);
-      };
-      resizeCanvas();
-
-      const count = window.innerWidth < 600 ? 36 : 68;
-      const glyphs = ["0", "1", "·", "+"];
-      const particles = Array.from({ length: count }, (_, i) => ({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: -0.35 - Math.random() * 0.55,
-        char: glyphs[i % glyphs.length],
-        alpha: 0.12 + Math.random() * 0.28,
-        accent: i % 6 === 0,
-        size: i % 4 === 0 ? 11 : 9,
-      }));
-
-      const renderParticles = () => {
-        if (!ctx2d) return;
-        ctx2d.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        ctx2d.font = '500 10px monospace';
-        ctx2d.textAlign = "center";
-        ctx2d.textBaseline = "middle";
-
-        for (const p of particles) {
-          const dx = p.x - pointer.x;
-          const dy = p.y - pointer.y;
-          const distSq = dx * dx + dy * dy;
-          if (distSq < 16000 && distSq > 1) {
-            const dist = Math.sqrt(distSq);
-            const force = (1 - dist / 126) * 1.6;
-            p.x += (dx / dist) * force;
-            p.y += (dy / dist) * force;
-          }
-
-          p.x += p.vx;
-          p.y += p.vy;
-
-          if (p.y < -20) p.y = window.innerHeight + 20;
-          if (p.x < -20) p.x = window.innerWidth + 20;
-          if (p.x > window.innerWidth + 20) p.x = -20;
-
-          ctx2d.fillStyle = p.accent
-            ? `rgba(229, 155, 134, ${p.alpha + 0.15})`
-            : `rgba(246, 244, 238, ${p.alpha})`;
-          ctx2d.fillText(p.char, p.x, p.y);
-        }
-
-        rafId = window.requestAnimationFrame(renderParticles);
-      };
-      rafId = window.requestAnimationFrame(renderParticles);
+    try {
+      if (window.sessionStorage.getItem(INTRO_SEEN_KEY) === "true") {
+        stage.hidden = true;
+        return;
+      }
+    } catch {
+      // Storage may be disabled; keep the intro available in that case.
     }
 
-    // 2. GSAP Choreographed Overture + Seamless Hero Handoff
-    const heroSection = document.querySelector<HTMLElement>(".hero");
-    const heroLines = document.querySelectorAll<HTMLElement>(".hero-line-inner");
+    const heroLines = gsap.utils.toArray<HTMLElement>(".hero-line-inner");
     const heroIntro = document.querySelector<HTMLElement>(".hero-intro");
-    const heroDesc = document.querySelector<HTMLElement>(".hero-description");
+    const heroDesc = document.querySelector<HTMLElement>(".hero-description p");
+    const heroActions = document.querySelectorAll<HTMLElement>(".hero-actions > *");
     const portraitWrap = document.querySelector<HTMLElement>(".portrait-image-wrap");
     const portraitImg = document.querySelector<HTMLElement>(".portrait-image-wrap img");
+    const portraitCross = document.querySelector<HTMLElement>(".portrait-cross");
     const portraitCaption = document.querySelector<HTMLElement>(".hero-portrait figcaption");
-    const navbar = document.querySelector<HTMLElement>(".navigation");
+    const logoEl = document.querySelector<HTMLElement>(".navigation .wordmark");
+    const navItems = document.querySelectorAll<HTMLElement>(
+      ".navigation .desktop-nav, .navigation .nav-contact, .navigation .mobile-menu",
+    );
+    const atmosphere = stage.querySelector<HTMLElement>(".overture-atmosphere");
+    const orbits = stage.querySelector<HTMLElement>(".overture-orbits");
+    const trails = stage.querySelectorAll<SVGElement>(".overture-orbit-trail");
+    const glow = stage.querySelector<HTMLElement>(".overture-eclipse");
+    const notes = stage.querySelectorAll<HTMLElement>(".overture-note");
+    const chars = stage.querySelectorAll<HTMLElement>(".overture-char");
+
+    const isDesktop = window.innerWidth >= 900;
+    const isMobile = window.innerWidth <= 600;
 
     const ctx = gsap.context(() => {
-      const columns = gsap.utils.toArray<HTMLElement>(".intro-col", root);
-      const corners = gsap.utils.toArray<HTMLElement>(".intro-corner", root);
-      const crosshairs = gsap.utils.toArray<HTMLElement>(".intro-cross", root);
-      const axisLines = gsap.utils.toArray<HTMLElement>(".intro-axis", root);
+      gsap.set(stage, { visibility: "visible" });
+      // 1. Measure live destination coordinates for BOTH Dual-FLIP elements
+      const targetPortraitRect = portraitWrap?.getBoundingClientRect();
+      const targetLogoRect = logoEl?.getBoundingClientRect();
 
-      // Prepare Hero initial states behind the architectural shutters
-      if (heroSection) gsap.set(heroSection, { scale: 1.035, transformOrigin: "center top" });
-      if (heroLines.length) {
-        gsap.set(heroLines, { yPercent: 118, rotateZ: 1.5, transformOrigin: "left bottom" });
+      // 2. Lock centered starting coordinates for the FLIP Portrait Card
+      const startW = isMobile ? 176 : Math.min(320, Math.max(245, window.innerWidth * 0.22));
+      const startH = isMobile ? 176 : startW / 0.91;
+      const startLeft = (window.innerWidth - startW) / 2;
+      const startTop = (window.innerHeight - startH) / 2;
+
+      gsap.set(flipCard, {
+        left: startLeft,
+        top: startTop,
+        width: startW,
+        height: startH,
+        xPercent: 0,
+        yPercent: 0,
+        x: 0,
+        y: 0,
+      });
+
+      if (flipImgRef.current) {
+        gsap.set(flipImgRef.current, { scale: 1.18, filter: "contrast(1.1)" });
       }
+
+      // 3. Lock centered starting coordinates for the FLIP Signature Wordmark ("tharindu.")
+      const baseLogoW = signature.offsetWidth || targetLogoRect?.width || 118;
+      const baseLogoH = signature.offsetHeight || targetLogoRect?.height || 44;
+      const startLogoScale = isMobile ? 1.95 : 3.1;
+      const sigStartLeft = (window.innerWidth - baseLogoW * startLogoScale) / 2;
+      const sigStartTop = (window.innerHeight - baseLogoH * startLogoScale) / 2;
+
+      gsap.set(signature, {
+        left: sigStartLeft,
+        top: sigStartTop,
+        xPercent: 0,
+        yPercent: 0,
+        x: 0,
+        y: 0,
+        scale: startLogoScale,
+      });
+
+      // 4. Prepare Hero & Navbar elements underneath the stage
+      if (portraitWrap) gsap.set(portraitWrap, { opacity: 0 });
+      if (logoEl) gsap.set(logoEl, { opacity: 0 });
+      if (navItems.length) gsap.set(navItems, { y: -18, opacity: 0 });
       if (heroIntro) gsap.set(heroIntro, { y: 18, opacity: 0 });
-      if (heroDesc) gsap.set(heroDesc, { y: 22, opacity: 0 });
-      if (portraitWrap) {
-        gsap.set(portraitWrap, {
-          clipPath: "inset(18% 14% 18% 14% round 4px)",
-          opacity: 0,
+      if (heroLines.length) {
+        gsap.set(heroLines, {
+          yPercent: 115,
+          rotateZ: 1.8,
+          transformOrigin: "left bottom",
         });
       }
-      if (portraitImg) gsap.set(portraitImg, { scale: 1.22, filter: "contrast(1.15)" });
+      if (heroDesc) gsap.set(heroDesc, { y: 20, opacity: 0 });
+      if (heroActions.length) gsap.set(heroActions, { y: 16, opacity: 0 });
       if (portraitCaption) gsap.set(portraitCaption, { y: 14, opacity: 0 });
-      if (navbar) gsap.set(navbar, { y: -24, opacity: 0 });
 
       const tl = gsap.timeline({
         defaults: { ease: "expo.out" },
         onComplete: () => {
-          window.cancelAnimationFrame(rafId);
+          try {
+            window.sessionStorage.setItem(INTRO_SEEN_KEY, "true");
+          } catch {
+            // The intro remains usable when browser storage is unavailable.
+          }
+          document.documentElement.classList.remove("intro-playing");
+          document.documentElement.classList.add("intro-seen");
           setDone(true);
         },
       });
 
-      // Stage A: Blueprint axes, corners, crosshairs, and SVG optical ring
+      // Light gathers around the portrait as the signature rises.
       tl.fromTo(
-        axisLines,
-        { scale: 0, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.75, stagger: 0.06, ease: "expo.inOut" },
+        chars,
+        { yPercent: 110, opacity: 0 },
+        {
+          yPercent: 0,
+          opacity: 1,
+          duration: 0.62,
+          stagger: 0.024,
+          ease: "expo.out",
+        },
         0,
       )
         .fromTo(
-          corners,
-          { y: 10, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, stagger: 0.04 },
-          0.08,
+          glow,
+          { scale: 0.72, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.85, ease: "power2.out" },
+          0,
         )
         .fromTo(
-          crosshairs,
-          { scale: 0, rotate: -90, opacity: 0 },
-          { scale: 1, rotate: 0, opacity: 0.65, duration: 0.65, stagger: 0.05, ease: "back.out(1.7)" },
-          0.1,
-        );
-
-      if (ringRef.current) {
-        tl.fromTo(
-          ringRef.current,
-          { strokeDashoffset: 566, rotate: -45, transformOrigin: "center center" },
-          { strokeDashoffset: 0, rotate: 0, duration: 1.35, ease: "expo.inOut" },
-          0.05,
-        );
-      }
-
-      // Stage B: Kinetic Typography Trilogy (THOUGHT -> FORM -> FUNCTION)
-      wordRefs.current.forEach((wordEl, index) => {
-        if (!wordEl) return;
-        const startAt = 0.08 + index * 0.35;
-        tl.fromTo(
-          wordEl,
-          { yPercent: 120, skewY: 4, opacity: 0 },
-          { yPercent: 0, skewY: 0, opacity: 1, duration: 0.34, ease: "expo.out" },
-          startAt,
-        ).to(
-          wordEl,
-          { yPercent: -120, skewY: -3, opacity: 0, duration: 0.24, ease: "expo.in" },
-          startAt + 0.26,
-        );
-      });
-
-      // Stage C: Signature Monogram "tharindu." + Terracotta Light Bloom
-      tl.fromTo(
-        brandRef.current,
-        { yPercent: 115, scale: 0.94, opacity: 0 },
-        { yPercent: 0, scale: 1, opacity: 1, duration: 0.55, ease: "expo.out" },
-        1.26,
-      )
-        .fromTo(
-          dotRef.current,
-          { scale: 0, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2.4)" },
-          1.38,
+          orbits,
+          { scale: 0.88, rotation: -12, opacity: 0 },
+          { scale: 1, rotation: 0, opacity: 1, duration: 0.75 },
+          0,
         )
         .fromTo(
-          glowRef.current,
-          { scale: 0.4, opacity: 0 },
-          { scale: 1.45, opacity: 0.85, duration: 0.6, ease: "power2.out" },
-          1.26,
-        );
-
-      // Stage D: Aperture Expansion + 5-Column Architectural Wave Shutter Reveal
-      tl.to(
-        [corners, crosshairs, axisLines, canvas, glowRef.current],
-        { opacity: 0, duration: 0.38, ease: "power2.in" },
-        1.72,
-      )
-        .to(
-          apertureRef.current,
+          trails,
+          { strokeDashoffset: 1 },
           {
-            scale: 1.32,
-            y: -28,
-            opacity: 0,
-            duration: 0.55,
-            ease: "expo.in",
+            strokeDashoffset: 0,
+            duration: 1.35,
+            stagger: 0.08,
+            ease: "power2.inOut",
           },
-          1.66,
+          0.03,
+        )
+        .fromTo(
+          notes,
+          { y: 10, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.45, stagger: 0.06 },
+          0.12,
+        )
+        // A circular aperture opens behind the original portrait/name handoff.
+        .to(notes, { y: -8, opacity: 0, duration: 0.28 }, 0.72)
+        .to(
+          orbits,
+          { scale: 1.22, rotation: 16, opacity: 0, duration: 0.65, ease: "power2.in" },
+          0.65,
         )
         .to(
-          columns,
+          atmosphere,
           {
-            yPercent: -102,
-            duration: 0.92,
-            stagger: { each: 0.055, from: "center" },
+            "--reveal-radius": `${Math.hypot(window.innerWidth, window.innerHeight) / 2 + 2}px`,
+            duration: 1.05,
             ease: "expo.inOut",
           },
-          1.7,
+          0.72,
         );
 
-      // Stage E: Synchronized Hero Spatial Entrance (overlaps shutter opening)
-      if (heroSection) {
+      // Dual-FLIP 1: Giant center "tharindu." flies & scales directly into Navbar .wordmark
+      if (targetLogoRect && targetLogoRect.width > 0) {
         tl.to(
-          heroSection,
-          { scale: 1, duration: 1.2, ease: "expo.out", clearProps: "transform" },
-          1.82,
+          signature,
+          {
+            left: targetLogoRect.left,
+            top: targetLogoRect.top,
+            scale: 1,
+            duration: 0.9,
+            ease: "expo.inOut",
+          },
+          0.7,
+        ).to(
+          signature,
+          {
+            color: "#1c1d1a",
+            textShadow: "0 0px 0px rgba(0, 0, 0, 0)",
+            duration: 0.48,
+            ease: "power2.out",
+          },
+          0.98,
+        );
+        if (accentCharRef.current) {
+          tl.to(
+            accentCharRef.current,
+            {
+              color: "#9e3e28",
+              duration: 0.48,
+              ease: "power2.out",
+            },
+            0.98,
+          );
+        }
+      } else {
+        tl.to(signature, { y: -60, opacity: 0, duration: 0.5 }, 0.7);
+      }
+
+      // Dual-FLIP 2: Center Portrait Card flies & resizes directly into Hero .portrait-image-wrap
+      if (targetPortraitRect && targetPortraitRect.width > 0) {
+        tl.to(
+          flipCard,
+          {
+            left: targetPortraitRect.left,
+            top: targetPortraitRect.top,
+            width: targetPortraitRect.width,
+            height: targetPortraitRect.height,
+            borderRadius: "3px",
+            borderColor: "rgba(246, 244, 238, 0)",
+            boxShadow: "0 0px 0px rgba(0, 0, 0, 0)",
+            duration: 1.0,
+            ease: "expo.inOut",
+          },
+          0.74,
+        );
+      } else {
+        tl.to(flipCard, { scale: 1.08, opacity: 0, duration: 0.65, ease: "expo.inOut" }, 0.74);
+      }
+
+      if (flipImgRef.current) {
+        tl.to(
+          flipImgRef.current,
+          {
+            scale: 1,
+            filter: "contrast(1)",
+            duration: 1.02,
+            ease: "expo.inOut",
+          },
+          0.74,
         );
       }
-      if (navbar) {
-        tl.to(
-          navbar,
-          { y: 0, opacity: 1, duration: 0.85, clearProps: "transform,opacity" },
-          1.92,
-        );
-      }
-      if (heroIntro) {
-        tl.to(
-          heroIntro,
-          { y: 0, opacity: 1, duration: 0.85, clearProps: "transform,opacity" },
-          1.96,
-        );
-      }
+
+      // Phase 3 (1.14s - 1.92s): Hero typography & Navbar links cascade into place
       if (heroLines.length) {
         tl.to(
           heroLines,
           {
             yPercent: 0,
             rotateZ: 0,
-            duration: 1.1,
-            stagger: 0.09,
+            duration: 0.92,
+            stagger: 0.07,
             ease: "expo.out",
             clearProps: "transform",
           },
-          1.9,
+          1.14,
         );
       }
-      if (portraitWrap) {
+      if (navItems.length) {
         tl.to(
-          portraitWrap,
+          navItems,
           {
-            clipPath: "inset(0% 0% 0% 0% round 3px)",
+            y: 0,
             opacity: 1,
-            duration: 1.15,
-            ease: "expo.out",
-            clearProps: "clipPath,opacity",
+            duration: 0.72,
+            stagger: 0.05,
+            clearProps: "transform,opacity",
           },
-          1.92,
+          1.12,
         );
       }
-      if (portraitImg) {
+      if (heroIntro) {
         tl.to(
-          portraitImg,
-          {
-            scale: 1,
-            filter: "contrast(1)",
-            duration: 1.45,
-            ease: "expo.out",
-            clearProps: "transform,filter",
-          },
-          1.92,
+          heroIntro,
+          { y: 0, opacity: 1, duration: 0.74, clearProps: "transform,opacity" },
+          1.14,
         );
       }
       if (heroDesc) {
+        tl.to(heroDesc, { y: 0, opacity: 1, duration: 0.74, clearProps: "transform,opacity" }, 1.2);
+      }
+      if (heroActions.length) {
         tl.to(
-          heroDesc,
-          { y: 0, opacity: 1, duration: 0.9, clearProps: "transform,opacity" },
-          2.08,
+          heroActions,
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            stagger: 0.06,
+            clearProps: "transform,opacity",
+          },
+          1.26,
         );
       }
       if (portraitCaption) {
         tl.to(
           portraitCaption,
-          { y: 0, opacity: 1, duration: 0.85, clearProps: "transform,opacity" },
-          2.14,
+          { y: 0, opacity: 1, duration: 0.7, clearProps: "transform,opacity" },
+          1.3,
         );
       }
-    }, root);
+
+      // Phase 4 (1.76s - 1.92s): Seamless zero-seam handoff to live DOM elements
+      if (portraitWrap) {
+        tl.to(
+          portraitWrap,
+          {
+            opacity: 1,
+            duration: 0.12,
+            ease: "none",
+            clearProps: "opacity",
+          },
+          1.76,
+        );
+      }
+      if (logoEl) {
+        tl.to(
+          logoEl,
+          {
+            opacity: 1,
+            duration: 0.12,
+            ease: "none",
+            clearProps: "opacity",
+          },
+          1.76,
+        );
+      }
+      tl.to(
+        [flipCard, signature],
+        {
+          opacity: 0,
+          duration: 0.16,
+          ease: "power1.out",
+        },
+        1.8,
+      );
+    }, stage);
+
+    // Subtle 3D magnetic parallax on Hero portrait after entrance
+    let cleanupParallax: (() => void) | undefined;
+    if (isDesktop && portraitWrap && portraitImg && portraitCross) {
+      const xToWrap = gsap.quickTo(portraitWrap, "x", { duration: 0.7, ease: "power3.out" });
+      const yToWrap = gsap.quickTo(portraitWrap, "y", { duration: 0.7, ease: "power3.out" });
+      const xToImg = gsap.quickTo(portraitImg, "x", { duration: 0.9, ease: "power3.out" });
+      const yToImg = gsap.quickTo(portraitImg, "y", { duration: 0.9, ease: "power3.out" });
+      const rToCross = gsap.quickTo(portraitCross, "rotation", {
+        duration: 0.6,
+        ease: "power2.out",
+      });
+
+      const onMove = (e: PointerEvent) => {
+        const nx = e.clientX / window.innerWidth - 0.5;
+        const ny = e.clientY / window.innerHeight - 0.5;
+        xToWrap(nx * 12);
+        yToWrap(ny * 9);
+        xToImg(nx * -7);
+        yToImg(ny * -5);
+        rToCross(nx * 90);
+      };
+
+      window.addEventListener("pointermove", onMove, { passive: true });
+      cleanupParallax = () => window.removeEventListener("pointermove", onMove);
+    }
+
+    const onMotionChange = () => {
+      if (!motionPreference.matches) return;
+      cleanupParallax?.();
+      ctx.revert();
+      setDone(true);
+    };
+    motionPreference.addEventListener("change", onMotionChange);
 
     return () => {
-      window.cancelAnimationFrame(rafId);
-      window.removeEventListener("pointermove", onPointerMove);
+      motionPreference.removeEventListener("change", onMotionChange);
+      cleanupParallax?.();
       ctx.revert();
     };
   }, []);
@@ -314,93 +398,56 @@ export function IntroLoader() {
   if (done) return null;
 
   return (
-    <div className="intro-stage" ref={rootRef} aria-hidden="true">
-      {/* 5 Architectural Vertical Shutter Columns */}
-      <div className="intro-shutters">
-        {COLUMNS.map((col) => (
-          <div key={col} className="intro-col">
-            <span className="intro-col-line" />
-          </div>
-        ))}
+    <div className="overture-stage" ref={stageRef} aria-hidden="true">
+      <div className="overture-atmosphere">
+        <div className="overture-eclipse" />
       </div>
-
-      {/* Interactive 60fps Binary & Coordinate Particle Field */}
-      <canvas className="intro-canvas" ref={canvasRef} />
-
-      {/* Warm Terracotta Ambient Bloom */}
-      <div className="intro-glow" ref={glowRef} />
-
-      {/* Architectural Axis Hairlines */}
-      <span className="intro-axis intro-axis-h" />
-      <span className="intro-axis intro-axis-v" />
-
-      {/* Precision Optical Crosshairs */}
-      <span className="intro-cross intro-cross-tl">+</span>
-      <span className="intro-cross intro-cross-tr">+</span>
-      <span className="intro-cross intro-cross-bl">+</span>
-      <span className="intro-cross intro-cross-br">+</span>
-
-      {/* Corner Editorial Telemetry */}
-      <div className="intro-corner intro-corner-tl eyebrow">
-        <span className="intro-dot" /> Tharindu Nimesh · Portfolio
-      </div>
-      <div className="intro-corner intro-corner-tr eyebrow">
-        6.9271° N, 80.5469° E — Matara, LK
-      </div>
-      <div className="intro-corner intro-corner-bl eyebrow">
-        Thought → Form → Function
-      </div>
-      <div className="intro-corner intro-corner-br eyebrow">
-        Web &amp; Mobile Engineering
-      </div>
-
-      {/* Center Optical Aperture + Kinetic Typography Stage */}
-      <div className="intro-aperture" ref={apertureRef}>
-        <svg className="intro-ring-svg" viewBox="0 0 200 200">
-          <circle
-            className="intro-ring-track"
-            cx="100"
-            cy="100"
-            r="90"
-            fill="none"
-            strokeWidth="0.75"
-          />
-          <circle
-            ref={ringRef}
-            className="intro-ring-active"
-            cx="100"
-            cy="100"
-            r="90"
-            fill="none"
-            strokeWidth="1.25"
-            strokeDasharray="566"
-            strokeDashoffset="566"
-          />
-        </svg>
-
-        <div className="intro-kinetic-box">
-          {WORDS.map((word, index) => (
-            <span key={word} className="intro-kinetic-mask">
-              <span
-                ref={(el) => {
-                  wordRefs.current[index] = el;
-                }}
-                className="intro-kinetic-word eyebrow"
-              >
-                {word}
-              </span>
-            </span>
+      <div className="overture-orbits">
+        <svg viewBox="0 0 1000 700" fill="none" focusable="false">
+          {[-24, 24, -58].map((angle, index) => (
+            <g key={angle} transform={`rotate(${angle} 500 350)`}>
+              <ellipse className="overture-orbit-track" cx="500" cy="350" rx="440" ry="176" />
+              <ellipse
+                className={`overture-orbit-trail overture-orbit-trail-${index}`}
+                cx="500"
+                cy="350"
+                rx="440"
+                ry="176"
+                pathLength="1"
+              />
+            </g>
           ))}
+        </svg>
+      </div>
+      <div className="overture-note overture-note-bottom">
+        <span className="overture-spark">✳</span>
+        <span>Welcome to my world</span>
+      </div>
 
-          <span className="intro-brand-mask">
-            <span className="intro-brand-word" ref={brandRef}>
-              tharindu
-              <span className="intro-brand-dot" ref={dotRef}>
-                .
-              </span>
-            </span>
+      {/* Center Portrait Card that physically FLIP-morphs into the Hero section's portrait slot */}
+      <div className="overture-flip-card" ref={flipCardRef}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          ref={flipImgRef}
+          src="/images/tharindu-portrait.webp"
+          alt=""
+          decoding="sync"
+          fetchPriority="high"
+        />
+        <span className="portrait-index eyebrow">The person behind the pixels</span>
+        <span className="portrait-cross">+</span>
+      </div>
+
+      {/* Dual-FLIP Signature Wordmark — physically flies from center to top-left Navbar .wordmark */}
+      <div className="overture-signature" ref={signatureRef}>
+        {SIGNATURE_CHARS.map((ch, idx) => (
+          <span className="overture-char" key={idx}>
+            {ch}
           </span>
-        </div>
+        ))}
+        <span className="overture-char overture-char-accent" ref={accentCharRef}>
+          .
+        </span>
       </div>
     </div>
   );
