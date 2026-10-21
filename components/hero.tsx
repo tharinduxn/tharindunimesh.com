@@ -10,7 +10,7 @@ export function Hero() {
           <h1 id="hero-heading">Thoughtful<br />products.<br /><span className="hero-final-line">Built right<span className="accent">.</span></span></h1>
           <div className="hero-description">
             <p>I bring ideas to life through considered design and thoughtful engineering. For the web. For mobile. For people.</p>
-            <a className="button button-dark" href="mailto:tharinduxn@gmail.com">Let’s build something <Arrow /></a>
+            <a className="button button-dark" href="#work">Explore selected work <Arrow direction="down" /></a>
           </div>
         </div>
         <figure className="hero-portrait">

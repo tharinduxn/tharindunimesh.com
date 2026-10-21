@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero";
+import { Projects } from "@/components/projects";
 import Link from "next/link";
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
       </header>
       <main id="main-content" tabIndex={-1}>
         <Hero />
+        <Projects />
       </main>
     </>
   );
