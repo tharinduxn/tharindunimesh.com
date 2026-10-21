@@ -1,6 +1,7 @@
 import { Hero } from "@/components/hero";
 import { Projects } from "@/components/projects";
 import { About } from "@/components/about";
+import { Experience } from "@/components/experience";
 import Link from "next/link";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
         <Hero />
         <Projects />
         <About />
+        <Experience />
       </main>
     </>
   );

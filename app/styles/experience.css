@@ -1,0 +1,23 @@
+.experience-section { border-bottom: 1px solid var(--line); }
+.milestones { display: grid; grid-template-columns: repeat(3, 1fr); padding: 0; margin: 65px 0 0; list-style: none; }
+.milestones li { padding: 0 36px 0 0; }
+.milestones li + li { padding-left: 26px; }
+.milestones li:last-child { padding-right: 0; }
+.milestone-date { position: relative; padding-top: 26px; border-top: 1px solid var(--line); color: var(--muted); font-size: 9px; }
+.milestone-dot { position: absolute; top: -4px; left: 0; width: 7px; height: 7px; background: var(--accent); border-radius: 50%; }
+.milestone-year { display: block; font-size: 68px; line-height: 1; letter-spacing: -.06em; margin: 24px 0; }
+.milestones h3 { font-size: 21px; font-weight: 500; line-height: 1.3; letter-spacing: -.035em; max-width: 230px; margin-bottom: 22px; }
+.milestone-role { font-size: 12px; font-weight: 500; line-height: 1.7; }
+.milestone-role > span { display: block; font-size: 10px; color: var(--muted); font-weight: 400; margin-top: 5px; }
+.milestones p { font-size: 13px; color: var(--muted); line-height: 1.9; margin-top: 22px; max-width: 300px; }
+@media (max-width: 1000px) { .milestones li { padding-right: 20px; } .milestones li + li { padding-left: 12px; } .milestone-year { font-size: 56px; } }
+@media (max-width: 600px) {
+  .milestones { grid-template-columns: 1fr; margin-top: 38px; }
+  .milestones li, .milestones li + li { padding: 0 0 35px 24px; border-left: 1px solid var(--line); }
+  .milestone-date { border: 0; padding: 0; }
+  .milestone-dot { top: 5px; left: -28px; }
+  .milestone-year { font-size: 42px; margin: 16px 0; }
+  .milestones h3 { font-size: 22px; max-width: none; margin-bottom: 16px; }
+  .milestones p { margin-top: 15px; }
+  .milestones li:last-child { padding-bottom: 0; }
+}
