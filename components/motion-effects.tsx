@@ -31,18 +31,25 @@ export function MotionEffects() {
     const observer = new IntersectionObserver(
       (entries) => {
         if (preference.matches) return;
+        let batchIndex = 0;
         for (const entry of entries) {
           if (!entry.isIntersecting || !(entry.target instanceof HTMLElement)) continue;
           const element = entry.target;
           visited.add(element);
           observer.unobserve(element);
+          const delay = Math.min(batchIndex * 0.05, 0.15);
+          batchIndex += 1;
           const animation = animate(
             element,
             {
-              opacity: [0.8, 1],
+              opacity: [0.82, 1],
               transform: [`translateY(${compact.matches ? 8 : 16}px)`, "translateY(0px)"],
             },
-            { duration: compact.matches ? 0.35 : 0.5, ease: [0.22, 1, 0.36, 1] },
+            {
+              duration: compact.matches ? 0.36 : 0.52,
+              delay,
+              ease: [0.22, 1, 0.36, 1],
+            },
           );
           animations.set(element, animation);
           animation.then(() => {

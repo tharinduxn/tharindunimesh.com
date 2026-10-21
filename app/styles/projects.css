@@ -243,6 +243,7 @@
   border-radius: 34px;
   padding: 42px 16px 24px;
   box-shadow: 0 15px 45px #0003;
+  transition: transform 0.4s var(--ease-out);
 }
 .study-phone-back {
   left: 0;
@@ -487,10 +488,16 @@
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .project-preview:hover .browser-frame {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
   }
   .project-preview:hover .mobile-frame {
-    transform: translateY(5px);
+    transform: translateY(6px);
+  }
+  .project-preview:hover .study-phone-back {
+    transform: rotate(-9.5deg) translateY(4px);
+  }
+  .project-preview:hover .study-phone-front {
+    transform: rotate(9.5deg) translateY(-6px);
   }
 }
 @media (max-width: 1000px) {
