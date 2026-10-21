@@ -1,12 +1,54 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f7f5f0;
-  --ink: #242522;
-  --muted: #62635d;
-  --line: #d9d8d0;
-  --accent: #a5432d;
-  --surface: #eeece5;
+  /* Core Surfaces */
+  --paper: #f6f4ee;
+  --surface: #ece9e0;
+  --surface-elevated: #fbfaf7;
+  --surface-subtle: #f1efe8;
+
+  /* Ink & Typography Colors (WCAG AA/AAA verified) */
+  --ink: #1e1f1c;
+  --ink-secondary: #373933;
+  --muted: #595b54;
+
+  /* Architectural Lines & Borders */
+  --line: #d6d4cb;
+  --line-strong: #b8b6ac;
+  --line-subtle: #e4e2da;
+
+  /* Brand Accent (Terracotta Rust — >4.8:1 contrast on light & with paper text) */
+  --accent: #9e3e28;
+  --accent-hover: #84311e;
+  --accent-soft: rgba(158, 62, 40, 0.08);
+  --accent-border: rgba(158, 62, 40, 0.28);
+
+  /* Inverse / Dark Section Tokens */
+  --dark-bg: #1c1d1a;
+  --dark-surface: #252723;
+  --dark-line: #3a3d36;
+  --dark-text: #f6f4ee;
+  --dark-muted: #b8bab0;
+  --dark-subtle: #d2d3c9;
+  --dark-accent: #e59b86;
+
+  /* Radii */
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+
+  /* Shadows & Elevation */
+  --shadow-sm: 0 2px 8px rgba(30, 31, 28, 0.05);
+  --shadow-md: 0 12px 32px rgba(30, 31, 28, 0.08);
+  --shadow-lg: 0 20px 48px rgba(30, 31, 28, 0.14);
+
+  /* Motion & Transitions */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 180ms;
+  --duration-base: 300ms;
 }
 @theme inline {
   --color-background: var(--paper);
@@ -94,15 +136,18 @@ img {
   z-index: 100;
   padding: 14px 22px;
   background: var(--ink);
-  color: white;
+  color: var(--paper);
+  border-radius: var(--radius-xs);
+  box-shadow: var(--shadow-md);
   transform: translateY(-160%);
+  transition: transform var(--duration-fast) var(--ease-out);
 }
 .skip-link:focus {
   transform: translateY(0);
 }
 .arrow {
   flex-shrink: 0;
-  transition: transform 0.2s ease;
+  transition: transform var(--duration-fast) var(--ease-out);
 }
 .arrow--right {
   transform: rotate(45deg);
@@ -114,16 +159,20 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 36px;
-  min-height: 52px;
+  gap: 20px;
+  min-height: 50px;
   padding: 13px 22px;
   font-size: 13px;
   font-weight: 500;
+  letter-spacing: -0.01em;
   border: 1px solid var(--ink);
-  border-radius: 3px;
+  border-radius: var(--radius-xs);
   transition:
-    background 0.2s ease,
-    color 0.2s ease;
+    background var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
 }
 .button-dark {
   background: var(--ink);
@@ -132,27 +181,58 @@ img {
 .button-dark:hover {
   background: var(--accent);
   border-color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+.button-outline {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+.button-outline:hover {
+  background: var(--surface-elevated);
+  border-color: var(--ink);
 }
 .button:hover .arrow--up-right {
   transform: translate(2px, -2px);
 }
+.button:hover .arrow--down {
+  transform: rotate(135deg) translate(2px, -2px);
+}
+.button:hover .arrow--right {
+  transform: rotate(45deg) translate(2px, -2px);
+}
 .text-link {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   min-height: 44px;
   font-size: 13px;
   font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: color var(--duration-fast) var(--ease-out);
 }
 .text-link:hover {
   color: var(--accent);
 }
-.site-header {
-  height: 104px;
-  display: flex;
-  justify-content: space-between;
+.text-link:hover .arrow--up-right {
+  transform: translate(2px, -2px);
+}
+.text-link:hover .arrow--right {
+  transform: rotate(45deg) translate(2px, -2px);
+}
+.pill {
+  display: inline-flex;
   align-items: center;
-  border-bottom: 1px solid var(--line);
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xs);
+  background: var(--surface-elevated);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
 }
 .wordmark {
   display: inline-flex;
@@ -331,12 +411,6 @@ img {
   }
   .container {
     width: calc(100% - 44px);
-  }
-  .site-header {
-    height: 80px;
-  }
-  .site-header > .eyebrow {
-    font-size: 8px;
   }
   .wordmark {
     font-size: 26px;
