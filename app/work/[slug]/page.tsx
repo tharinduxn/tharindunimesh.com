@@ -33,9 +33,14 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
       <MotionEffects key={slug} />
       <main className="case-study" id="main-content" tabIndex={-1}>
         <section className="case-intro container" data-page-enter>
-          <div className="section-label eyebrow">
-            <span className="index">Case study / {project.number}</span>
-            {project.category}
+          <div className="case-top-bar">
+            <div className="section-label eyebrow">
+              <span className="index">Case study / {project.number}</span>
+              {project.category}
+            </div>
+            <Link className="text-link case-back-link" href="/#work">
+              All selected work <Arrow direction="right" />
+            </Link>
           </div>
           <h1>
             {project.title}
@@ -51,7 +56,12 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
               <span className="eyebrow">Toolkit</span>
               <p>{project.stack.join(" / ")}</p>
             </div>
-            <a className="text-link" href={project.url} target="_blank" rel="noopener noreferrer">
+            <a
+              className="button button-dark case-live-btn"
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {project.linkLabel}
               <span className="sr-only"> (opens in a new tab)</span> <Arrow />
             </a>
