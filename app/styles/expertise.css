@@ -2,8 +2,15 @@
   background: var(--dark-bg);
   color: var(--dark-text);
 }
+.expertise-section .section-label {
+  background: var(--dark-surface);
+  border-color: var(--dark-line);
+}
 .expertise-section .section-label .index {
   color: var(--dark-accent);
+}
+.expertise-section .section-top {
+  border-bottom-color: var(--dark-line);
 }
 .expertise-section .section-heading .muted {
   color: var(--dark-muted);

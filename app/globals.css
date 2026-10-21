@@ -147,7 +147,7 @@ img {
   max-width: 100%;
 }
 .container {
-  width: min(100% - 112px, 1280px);
+  width: min(100% - clamp(44px, 7.5vw, 112px), 1280px);
   margin-inline: auto;
 }
 .accent {
@@ -380,15 +380,21 @@ img {
   color: var(--muted);
 }
 .section {
-  padding-block: 112px;
+  padding-block: clamp(72px, 8.5vw, 120px);
+  position: relative;
 }
 .section-label {
   display: inline-flex;
-  gap: 24px;
+  gap: 14px;
   align-items: center;
+  padding: 5px 12px 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xs);
+  background: var(--surface-subtle);
 }
 .section-label .index {
   color: var(--accent);
+  font-weight: 600;
 }
 .section-heading {
   font-size: var(--text-h2);
@@ -400,17 +406,20 @@ img {
   color: var(--muted);
 }
 .section-top {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
   align-items: end;
-  gap: 32px;
-  margin-bottom: 48px;
+  gap: 48px;
+  padding-bottom: 40px;
+  margin-bottom: 52px;
+  border-bottom: 1px solid var(--line);
 }
 .section-top .section-heading {
-  margin-top: 20px;
+  margin-top: 22px;
 }
 .section-top > p {
-  max-width: 320px;
+  max-width: 380px;
+  justify-self: end;
   color: var(--muted);
   font-size: var(--text-body);
   line-height: 1.75;
@@ -516,11 +525,14 @@ img {
     padding-block: 72px;
   }
   .section-top {
-    display: block;
-    margin-bottom: 32px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-bottom: 28px;
+    margin-bottom: 36px;
   }
   .section-top > p {
-    margin-top: 22px;
+    margin-top: 0;
+    justify-self: start;
   }
   .section-top .section-heading {
     margin-top: 18px;
