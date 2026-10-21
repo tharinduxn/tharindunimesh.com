@@ -138,30 +138,73 @@
   max-width: 340px;
   line-height: 1.6;
 }
+.footer-wrap {
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
 .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-block: 30px;
-  gap: 25px;
+  padding-block: 32px 24px;
+  gap: 28px;
 }
-.footer-copyright {
-  font-size: 10px;
+.footer-brand {
   display: flex;
-  gap: 24px;
+  flex-direction: column;
+  gap: 4px;
+}
+.footer-tagline {
   color: var(--muted);
+  font-size: 10px;
+}
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+}
+.footer-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-secondary);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+.footer-nav a:hover {
+  color: var(--accent);
 }
 .footer .text-link {
-  font-size: 11px;
+  font-size: 12px;
+}
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding-block: 18px 28px;
+  border-top: 1px solid var(--line-subtle);
+}
+.footer-copyright {
+  font-size: 12px;
+  display: flex;
+  gap: 20px;
+  color: var(--muted);
+}
+.footer-colophon {
+  color: var(--muted);
+  font-size: 10px;
 }
 @media (max-width: 1000px) {
   .contact-round-link {
     width: 80px;
     height: 80px;
   }
-  .footer-copyright {
-    flex-direction: column;
-    gap: 5px;
+  .footer {
+    flex-wrap: wrap;
   }
 }
 @media (max-width: 600px) {
@@ -203,15 +246,25 @@
     font-size: 14px;
   }
   .footer {
-    flex-wrap: wrap;
-    padding-block: 25px;
-    gap: 15px;
+    padding-block: 24px 16px;
+    gap: 16px;
   }
-  .footer-copyright {
+  .footer-nav {
     order: 3;
     width: 100%;
-    flex-direction: row;
+    gap: 4px 18px;
+    border-top: 1px solid var(--line-subtle);
+    padding-top: 12px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding-block: 14px 24px;
+  }
+  .footer-copyright {
+    width: 100%;
     justify-content: space-between;
-    font-size: 8px;
+    font-size: 11px;
   }
 }
