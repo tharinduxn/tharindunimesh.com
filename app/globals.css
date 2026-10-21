@@ -49,6 +49,23 @@
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 180ms;
   --duration-base: 300ms;
+
+  /* Fluid Editorial Typography Scale */
+  --text-display: clamp(3.75rem, 7.8vw, 7.5rem);
+  --text-h1: clamp(2.85rem, 6.2vw, 5.75rem);
+  --text-h2: clamp(2.35rem, 4.8vw, 4.5rem);
+  --text-h3: clamp(1.5rem, 2.4vw, 2.15rem);
+  --text-lead: clamp(1.125rem, 1.45vw, 1.375rem);
+  --text-body: 0.9375rem;
+  --text-sm: 0.8125rem;
+  --text-eyebrow: 0.6875rem;
+
+  /* Optical Tracking */
+  --tracking-display: -0.052em;
+  --tracking-heading: -0.044em;
+  --tracking-subhead: -0.028em;
+  --tracking-body: -0.008em;
+  --tracking-eyebrow: 0.1em;
 }
 @theme inline {
   --color-background: var(--paper);
@@ -70,8 +87,14 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: var(--text-body);
+  line-height: 1.65;
+  letter-spacing: var(--tracking-body);
+  font-feature-settings: "ss01", "cv01";
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 ::selection {
   background: var(--accent);
@@ -106,9 +129,18 @@ main:focus {
 h1,
 h2,
 h3,
+h4,
 p,
 figure {
   margin: 0;
+}
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
 }
 img {
   display: block;
@@ -124,10 +156,11 @@ img {
 .eyebrow {
   font-family: var(--font-geist-mono), monospace;
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: var(--text-eyebrow);
   font-weight: 500;
-  line-height: 1.7;
-  letter-spacing: 0.09em;
+  line-height: 1.6;
+  letter-spacing: var(--tracking-eyebrow);
+  font-variant-numeric: tabular-nums;
 }
 .skip-link {
   position: fixed;
@@ -273,22 +306,22 @@ img {
   gap: 60px;
 }
 .hero h1 {
-  font-size: clamp(72px, 8.8vw, 126px);
-  line-height: 0.97;
-  letter-spacing: -0.075em;
+  font-size: var(--text-display);
+  line-height: 0.96;
+  letter-spacing: var(--tracking-display);
   font-weight: 500;
 }
 .hero-final-line {
   color: var(--muted);
 }
 .hero-description {
-  max-width: 350px;
+  max-width: 390px;
   margin-top: 30px;
 }
 .hero-description p {
   color: var(--muted);
-  font-size: 15px;
-  line-height: 1.8;
+  font-size: 16px;
+  line-height: 1.75;
   margin-bottom: 24px;
 }
 .hero-portrait {
@@ -358,10 +391,10 @@ img {
   color: var(--accent);
 }
 .section-heading {
-  font-size: clamp(40px, 5.5vw, 76px);
+  font-size: var(--text-h2);
   font-weight: 500;
-  line-height: 1.04;
-  letter-spacing: -0.065em;
+  line-height: 1.03;
+  letter-spacing: var(--tracking-heading);
 }
 .section-heading .muted {
   color: var(--muted);
@@ -374,13 +407,13 @@ img {
   margin-bottom: 48px;
 }
 .section-top .section-heading {
-  margin-top: 24px;
+  margin-top: 20px;
 }
 .section-top > p {
-  max-width: 280px;
+  max-width: 320px;
   color: var(--muted);
-  font-size: 14px;
-  line-height: 1.8;
+  font-size: var(--text-body);
+  line-height: 1.75;
 }
 @media (min-width: 1600px) {
   .hero {
