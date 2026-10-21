@@ -10,3 +10,8 @@
 Capture session: 21 October 2026. Website screenshots are used to showcase projects identified as the owner's work in the supplied résumé. The two reference portfolio screenshots inform hierarchy and spacing only; none of their assets or layouts are copied.
 
 Project descriptions and résumé dates live in the source components and `lib/projects.ts`. Internly's résumé and public README differ in naming and technology; the supplied résumé remains the content source. Replace its interface study with actual app screenshots when available, and reconcile copy with the current app before publication.
+
+## README visuals
+
+- `docs/images/readme-cover.svg`: original vector artwork using the portfolio’s charcoal, ivory, terracotta, and orbital intro motifs. Contains no third-party illustration or embedded font.
+- `docs/images/portfolio-preview.png`: an actual 1440 × 900 capture of the local portfolio homepage after the intro completed, captured on 21 October 2026.
