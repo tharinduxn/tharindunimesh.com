@@ -315,7 +315,7 @@ img {
   color: var(--muted);
 }
 .hero-description {
-  max-width: 390px;
+  max-width: 450px;
   margin-top: 30px;
 }
 .hero-description p {
@@ -370,14 +370,74 @@ img {
   color: var(--muted);
   font-size: 9px;
 }
-.hero-bottom {
+.hero-actions {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
-  margin-top: 62px;
-  padding-block: 24px;
-  border-bottom: 1px solid var(--line);
+  gap: 12px 28px;
+}
+.hero-index {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  align-items: start;
+  gap: 24px;
+  margin-top: 64px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.hero-index-label {
   color: var(--muted);
+  padding-top: 14px;
+}
+.hero-index ol {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hero-index li + li {
+  border-left: 1px solid var(--line);
+}
+.hero-index a {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "number title arrow"
+    ". category arrow";
+  align-items: center;
+  gap: 2px 14px;
+  min-height: 64px;
+  padding: 10px 20px;
+  transition: background var(--duration-fast) var(--ease-out);
+}
+.hero-index a:hover {
+  background: var(--surface-subtle);
+}
+.hero-index-number {
+  grid-area: number;
+  color: var(--accent);
+}
+.hero-index-title {
+  grid-area: title;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-subhead);
+}
+.hero-index-category {
+  grid-area: category;
+  color: var(--muted);
+  font-size: 10px;
+}
+.hero-index .arrow {
+  grid-area: arrow;
+  width: 16px;
+  height: 16px;
+  color: var(--muted);
+}
+.hero-index a:hover .arrow {
+  color: var(--accent);
+  transform: translate(2px, -2px);
 }
 .section {
   padding-block: clamp(72px, 8.5vw, 120px);
@@ -443,6 +503,19 @@ img {
   .hero h1 {
     font-size: clamp(64px, 9.1vw, 92px);
   }
+  .hero-index {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .hero-index-label {
+    padding-top: 0;
+  }
+  .hero-index a {
+    padding-inline: 14px;
+  }
+  .hero-index li:first-child a {
+    padding-left: 0;
+  }
   .section {
     padding-block: 88px;
   }
@@ -463,63 +536,74 @@ img {
   .hero-intro {
     gap: 8px;
     flex-wrap: wrap;
-    font-size: 8px;
-    margin-bottom: 30px;
+    font-size: 10px;
+    margin-bottom: 26px;
   }
   .hero-intro-divider {
     margin: 0;
   }
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 38px;
+    gap: 32px;
   }
   .hero h1 {
-    font-size: clamp(57px, 15.9vw, 91px);
+    font-size: clamp(56px, 15.9vw, 91px);
   }
   .hero-description {
-    display: grid;
-    grid-template-columns: 1fr;
-    margin-top: 24px;
+    margin-top: 22px;
   }
   .hero-description p {
-    font-size: 14px;
-    max-width: 320px;
+    font-size: 15px;
+    max-width: 34ch;
   }
-  .hero-description .button {
-    justify-self: start;
+  .hero-actions {
+    gap: 4px 24px;
   }
+  /* Mobile: the portrait becomes a compact identity card instead of a full-bleed image. */
   .hero-portrait {
     display: grid;
-    grid-template-columns: 1fr 100px;
-    align-items: end;
-    gap: 16px;
+    grid-template-columns: 112px 1fr;
+    align-items: center;
+    gap: 18px;
     max-width: none;
-    padding: 0;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface-elevated);
   }
   .portrait-image-wrap {
     aspect-ratio: 1;
   }
-  .portrait-index {
+  .portrait-index,
+  .portrait-cross {
     display: none;
   }
   .hero-portrait figcaption {
     display: flex;
     flex-direction: column;
-    gap: 22px;
-    font-size: 10px;
-    padding-bottom: 4px;
+    gap: 12px;
+    font-size: 14px;
+    padding: 0;
   }
   .hero-portrait figcaption .eyebrow {
     text-align: left;
-    font-size: 8px;
+    font-size: 10px;
   }
-  .hero-bottom {
-    margin-top: 32px;
-    font-size: 8px;
-    padding-block: 20px;
+  .hero-index {
+    margin-top: 36px;
+    padding-top: 18px;
   }
-  .hero-bottom > span:nth-child(2) {
-    display: none;
+  .hero-index ol {
+    grid-template-columns: 1fr;
+  }
+  .hero-index li + li {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+  .hero-index a,
+  .hero-index li:first-child a {
+    padding-inline: 0;
+    min-height: 60px;
   }
   .section {
     padding-block: 72px;

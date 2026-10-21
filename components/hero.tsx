@@ -1,12 +1,17 @@
 import Image from "next/image";
+import Link from "next/link";
+import { projects } from "@/lib/projects";
 import { Arrow } from "./arrow";
 
 export function Hero() {
   return (
     <section className="hero container" aria-labelledby="hero-heading" id="top">
       <div className="hero-intro eyebrow">
-        <span className="status-dot" /> Tharindu Nimesh{" "}
-        <span className="hero-intro-divider">/</span> Developer & product builder
+        <span className="status-dot" aria-hidden="true" /> Tharindu Nimesh{" "}
+        <span className="hero-intro-divider" aria-hidden="true">
+          /
+        </span>{" "}
+        Developer &amp; product builder
       </div>
       <div className="hero-grid">
         <div className="hero-copy">
@@ -21,12 +26,17 @@ export function Hero() {
           </h1>
           <div className="hero-description" data-page-enter>
             <p>
-              I bring ideas to life through considered design and thoughtful engineering. For the
-              web. For mobile. For people.
+              I design and engineer web and mobile products, from the first user flow to the last
+              performance detail. React, Next.js, and Flutter, shaped by a product mindset.
             </p>
-            <a className="button button-dark" href="#work">
-              Explore selected work <Arrow direction="down" />
-            </a>
+            <div className="hero-actions">
+              <a className="button button-dark" href="#work">
+                Explore selected work <Arrow direction="down" />
+              </a>
+              <a className="text-link" href="#contact">
+                Start a conversation <Arrow />
+              </a>
+            </div>
           </div>
         </div>
         <figure className="hero-portrait">
@@ -36,7 +46,7 @@ export function Hero() {
               alt="Tharindu Nimesh, rendered in a monochrome pattern of binary digits"
               width={1000}
               height={1000}
-              sizes="(max-width: 600px) calc(100vw - 160px), (max-width: 1000px) 45vw, 420px"
+              sizes="(max-width: 600px) 112px, (max-width: 1000px) 40vw, 420px"
               loading="eager"
               fetchPriority="high"
             />
@@ -56,16 +66,28 @@ export function Hero() {
             <span className="eyebrow">
               Based in
               <br />
-              Sri Lanka ↗
+              Matara, Sri Lanka
             </span>
           </figcaption>
         </figure>
       </div>
-      <div className="hero-bottom eyebrow">
-        <span>Web & mobile experiences</span>
-        <span>Design with intent. Build with care.</span>
-        <Arrow direction="down" />
-      </div>
+      <nav className="hero-index" aria-label="Selected case studies">
+        <span className="hero-index-label eyebrow">Selected work</span>
+        <ol>
+          {projects.map((project) => (
+            <li key={project.slug}>
+              <Link href={`/work/${project.slug}`}>
+                <span className="eyebrow hero-index-number">{project.number}</span>
+                <span className="hero-index-title">{project.title}</span>
+                <span className="eyebrow hero-index-category">
+                  {project.category.split(" / ")[0]}
+                </span>
+                <Arrow />
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </nav>
     </section>
   );
 }
