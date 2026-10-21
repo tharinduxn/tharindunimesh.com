@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tharindu Nimesh
 
-## Getting Started
+**Thoughtful products. Built right.**
 
-First, run the development server:
+An editorial portfolio built on the existing Next.js App Router project: three project case studies, a personal story, a growth timeline, expertise, process, and direct contact. Warm monochrome, a rust accent, real website captures, and restrained progressive motion.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
+[Design audit & blueprint](docs/REDESIGN.md) · [Validation results](docs/VALIDATION.md) · [Asset sources](docs/ASSETS.md)
+
+## Develop
+
+Requires Node.js, pnpm (the pinned version is in `package.json`), and an installed Chrome or Edge browser for browser checks.
+
+```powershell
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [localhost:3000](http://localhost:3000). No environment variables or external services are required to run the portfolio.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Edit the portfolio
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Area                                                | Source                                                     |
+| --------------------------------------------------- | ---------------------------------------------------------- |
+| Page composition                                    | `app/page.tsx`                                             |
+| Typography, spacing, colors                         | `app/globals.css`                                          |
+| Individual section layouts                          | `app/styles/`                                              |
+| Hero, story, growth, expertise, process             | `components/`                                              |
+| Project copy, tools, links, and case-study chapters | `lib/projects.ts`                                          |
+| Case-study route                                    | `app/work/[slug]/page.tsx`                                 |
+| Product images and device compositions              | `components/project-visual.tsx`, `public/images/projects/` |
+| Email, social links, clipboard behavior             | `components/contact.tsx`, `components/copy-email.tsx`      |
+| Navigation and motion                               | `components/header.tsx`, `components/motion-effects.tsx`   |
+| Metadata and icon                                   | `app/layout.tsx`, `app/icon.svg`                           |
 
-## Learn More
+The Internly visual is a labeled interface study. Replace it with actual app captures when available and reconcile the supplied résumé with the current repository before publishing. Project copy deliberately avoids unsupported usage statistics and commercial claims.
 
-To learn more about Next.js, take a look at the following resources:
+## Verify an increment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Keep the dev server running, then run:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```powershell
+pnpm typecheck
+pnpm lint
+pnpm format:check
+pnpm test:browser
+pnpm test:interactions
+pnpm test:motion
+```
 
-## Deploy on Vercel
+`pnpm test:browser /` checks just the homepage for an isolated homepage change. Without arguments it also checks all three case studies. Review screenshots in `.qa/`, then commit the completed feature separately. `pnpm format` formats maintained source and documentation.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Production checks
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```powershell
+pnpm build
+pnpm start --hostname 127.0.0.1 --port 3001
+```
+
+In a second terminal:
+
+```powershell
+$env:QA_URL = 'http://127.0.0.1:3001'
+pnpm test:browser
+pnpm test:interactions
+pnpm test:motion
+pnpm audit:lighthouse
+```
+
+Run Lighthouse by itself for consistent measurements. It writes HTML and JSON reports to `.qa/` and checks the 95+ performance / 100 accessibility target. Latest measured scores: **95 mobile performance, 100 desktop performance; 100 accessibility, best practices, and SEO on both.** See the validation record for conditions and limits.
+
+The UI is server-rendered. Small client components handle navigation feedback, clipboard actions, and motion. Content is visible without animation JavaScript; reduced-motion preferences are respected. Native scrolling and semantic HTML remain the foundation.

@@ -11,25 +11,32 @@ export function MotionEffects() {
     const animations = new Map<HTMLElement, ReturnType<typeof animate>>();
     const visited = new Set<Element>();
     const elements = document.querySelectorAll<HTMLElement>("[data-reveal]");
-    const observer = new IntersectionObserver(entries => {
-      if (preference.matches) return;
-      for (const entry of entries) {
-        if (!entry.isIntersecting || !(entry.target instanceof HTMLElement)) continue;
-        const element = entry.target;
-        visited.add(element);
-        observer.unobserve(element);
-        const animation = animate(element, {
-          opacity: [0.8, 1],
-          transform: [`translateY(${compact.matches ? 8 : 16}px)`, "translateY(0px)"],
-        }, { duration: compact.matches ? 0.35 : 0.5, ease: [0.22, 1, 0.36, 1] });
-        animations.set(element, animation);
-        animation.then(() => {
-          element.style.removeProperty("opacity");
-          element.style.removeProperty("transform");
-          animations.delete(element);
-        });
-      }
-    }, { threshold: 0.08 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (preference.matches) return;
+        for (const entry of entries) {
+          if (!entry.isIntersecting || !(entry.target instanceof HTMLElement)) continue;
+          const element = entry.target;
+          visited.add(element);
+          observer.unobserve(element);
+          const animation = animate(
+            element,
+            {
+              opacity: [0.8, 1],
+              transform: [`translateY(${compact.matches ? 8 : 16}px)`, "translateY(0px)"],
+            },
+            { duration: compact.matches ? 0.35 : 0.5, ease: [0.22, 1, 0.36, 1] },
+          );
+          animations.set(element, animation);
+          animation.then(() => {
+            element.style.removeProperty("opacity");
+            element.style.removeProperty("transform");
+            animations.delete(element);
+          });
+        }
+      },
+      { threshold: 0.08 },
+    );
 
     const syncPreference = () => {
       observer.disconnect();
@@ -41,7 +48,9 @@ export function MotionEffects() {
         });
         animations.clear();
       } else {
-        elements.forEach(element => { if (!visited.has(element)) observer.observe(element); });
+        elements.forEach((element) => {
+          if (!visited.has(element)) observer.observe(element);
+        });
       }
     };
     syncPreference();

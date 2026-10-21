@@ -21,17 +21,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Tharindu Nimesh — Developer & Product Builder", template: "%s — Tharindu Nimesh" },
-  description: "Thoughtful digital products, built right. Tharindu Nimesh is a developer in Sri Lanka building considered web and mobile experiences with React, Next.js, and Flutter.",
+  title: {
+    default: "Tharindu Nimesh — Developer & Product Builder",
+    template: "%s — Tharindu Nimesh",
+  },
+  description:
+    "Thoughtful digital products, built right. Tharindu Nimesh is a developer in Sri Lanka building considered web and mobile experiences with React, Next.js, and Flutter.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}`}
-    >
-      <body><a className="skip-link" href="#main-content">Skip to content</a>{children}<Footer /></body>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
