@@ -6,8 +6,6 @@ import "@/app/styles/intro.css";
 
 const SIGNATURE_CHARS = ["t", "h", "a", "r", "i", "n", "d", "u"];
 const INTRO_SEEN_KEY = "tharinduxn-intro-seen";
-// Allow the opening composition to settle, then keep the existing handoff speed.
-const HANDOFF_START = 1.2;
 
 export function IntroLoader() {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -175,18 +173,13 @@ export function IntroLoader() {
           0.12,
         )
         // Complete the opening cue as the portrait handoff begins, using the same timeline.
-        .fromTo(
-          progress,
-          { scaleX: 0 },
-          { scaleX: 1, duration: HANDOFF_START - 0.1, ease: "none" },
-          0.12,
-        )
+        .fromTo(progress, { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "none" }, 0.12)
         // A circular aperture opens behind the original portrait/name handoff.
-        .to(notes, { y: -8, opacity: 0, duration: 0.28 }, HANDOFF_START + 0.02)
+        .to(notes, { y: -8, opacity: 0, duration: 0.28 }, 0.72)
         .to(
           orbits,
           { scale: 1.22, rotation: 16, opacity: 0, duration: 0.65, ease: "power2.in" },
-          HANDOFF_START - 0.05,
+          0.65,
         )
         .to(
           atmosphere,
@@ -195,7 +188,7 @@ export function IntroLoader() {
             duration: 1.05,
             ease: "expo.inOut",
           },
-          HANDOFF_START + 0.02,
+          0.72,
         );
 
       // Dual-FLIP 1: Giant center "tharindu." flies & scales directly into Navbar .wordmark
@@ -209,7 +202,7 @@ export function IntroLoader() {
             duration: 0.9,
             ease: "expo.inOut",
           },
-          HANDOFF_START,
+          0.7,
         ).to(
           signature,
           {
@@ -218,7 +211,7 @@ export function IntroLoader() {
             duration: 0.48,
             ease: "power2.out",
           },
-          HANDOFF_START + 0.28,
+          0.98,
         );
         if (accentCharRef.current) {
           tl.to(
@@ -228,11 +221,11 @@ export function IntroLoader() {
               duration: 0.48,
               ease: "power2.out",
             },
-            HANDOFF_START + 0.28,
+            0.98,
           );
         }
       } else {
-        tl.to(signature, { y: -60, opacity: 0, duration: 0.5 }, HANDOFF_START);
+        tl.to(signature, { y: -60, opacity: 0, duration: 0.5 }, 0.7);
       }
 
       // Dual-FLIP 2: Center Portrait Card flies & resizes directly into Hero .portrait-image-wrap
@@ -250,14 +243,10 @@ export function IntroLoader() {
             duration: 1.0,
             ease: "expo.inOut",
           },
-          HANDOFF_START + 0.04,
+          0.74,
         );
       } else {
-        tl.to(
-          flipCard,
-          { scale: 1.08, opacity: 0, duration: 0.65, ease: "expo.inOut" },
-          HANDOFF_START + 0.04,
-        );
+        tl.to(flipCard, { scale: 1.08, opacity: 0, duration: 0.65, ease: "expo.inOut" }, 0.74);
       }
 
       if (flipImgRef.current) {
@@ -269,11 +258,11 @@ export function IntroLoader() {
             duration: 1.02,
             ease: "expo.inOut",
           },
-          HANDOFF_START + 0.04,
+          0.74,
         );
       }
 
-      // Hero typography and navigation cascade after the handoff starts (complete at 2.7s).
+      // Phase 3 (1.14s - 1.92s): Hero typography & Navbar links cascade into place
       if (heroLines.length) {
         tl.to(
           heroLines,
@@ -285,7 +274,7 @@ export function IntroLoader() {
             ease: "expo.out",
             clearProps: "transform",
           },
-          HANDOFF_START + 0.44,
+          1.14,
         );
       }
       if (navItems.length) {
@@ -298,22 +287,18 @@ export function IntroLoader() {
             stagger: 0.05,
             clearProps: "transform,opacity",
           },
-          HANDOFF_START + 0.42,
+          1.12,
         );
       }
       if (heroIntro) {
         tl.to(
           heroIntro,
           { y: 0, opacity: 1, duration: 0.74, clearProps: "transform,opacity" },
-          HANDOFF_START + 0.44,
+          1.14,
         );
       }
       if (heroDesc) {
-        tl.to(
-          heroDesc,
-          { y: 0, opacity: 1, duration: 0.74, clearProps: "transform,opacity" },
-          HANDOFF_START + 0.5,
-        );
+        tl.to(heroDesc, { y: 0, opacity: 1, duration: 0.74, clearProps: "transform,opacity" }, 1.2);
       }
       if (heroActions.length) {
         tl.to(
@@ -325,18 +310,18 @@ export function IntroLoader() {
             stagger: 0.06,
             clearProps: "transform,opacity",
           },
-          HANDOFF_START + 0.56,
+          1.26,
         );
       }
       if (portraitCaption) {
         tl.to(
           portraitCaption,
           { y: 0, opacity: 1, duration: 0.7, clearProps: "transform,opacity" },
-          HANDOFF_START + 0.6,
+          1.3,
         );
       }
 
-      // Hand the animated portrait and signature back to their live DOM elements.
+      // Phase 4 (1.76s - 1.92s): Seamless zero-seam handoff to live DOM elements
       if (portraitWrap) {
         tl.to(
           portraitWrap,
@@ -346,7 +331,7 @@ export function IntroLoader() {
             ease: "none",
             clearProps: "opacity",
           },
-          HANDOFF_START + 1.06,
+          1.76,
         );
       }
       if (logoEl) {
@@ -358,7 +343,7 @@ export function IntroLoader() {
             ease: "none",
             clearProps: "opacity",
           },
-          HANDOFF_START + 1.06,
+          1.76,
         );
       }
       tl.to(
@@ -368,7 +353,7 @@ export function IntroLoader() {
           duration: 0.16,
           ease: "power1.out",
         },
-        HANDOFF_START + 1.1,
+        1.8,
       );
     }, stage);
 
