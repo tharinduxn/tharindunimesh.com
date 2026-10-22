@@ -50,6 +50,7 @@ export function IntroLoader() {
     const trails = stage.querySelectorAll<SVGElement>(".overture-orbit-trail");
     const glow = stage.querySelector<HTMLElement>(".overture-eclipse");
     const notes = stage.querySelectorAll<HTMLElement>(".overture-note");
+    const progress = stage.querySelector<HTMLElement>(".overture-progress-fill");
     const chars = stage.querySelectorAll<HTMLElement>(".overture-char");
 
     const isDesktop = window.innerWidth >= 900;
@@ -171,6 +172,8 @@ export function IntroLoader() {
           { y: 0, opacity: 1, duration: 0.45, stagger: 0.06 },
           0.12,
         )
+        // Complete the opening cue as the portrait handoff begins, using the same timeline.
+        .fromTo(progress, { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "none" }, 0.12)
         // A circular aperture opens behind the original portrait/name handoff.
         .to(notes, { y: -8, opacity: 0, duration: 0.28 }, 0.72)
         .to(
@@ -420,7 +423,9 @@ export function IntroLoader() {
         </svg>
       </div>
       <div className="overture-note overture-note-bottom">
-        <span className="overture-spark">✳</span>
+        <span className="overture-progress">
+          <span className="overture-progress-fill" />
+        </span>
         <span>Welcome to my world</span>
       </div>
 
